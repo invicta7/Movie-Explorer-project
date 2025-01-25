@@ -1,7 +1,9 @@
 import React from 'react'
 
-export const SearchMovie = () => {
+ const SearchMovie = () => {
   return (
     <div>SearchMovie</div>
   )
 }
+
+export default SearchMovie
