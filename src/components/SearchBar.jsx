@@ -3,7 +3,7 @@ import React from 'react'
 const SearchBar = ({onClick, value}) => {
   return (
     <form className='w-fit relative border-[1px] border-[#0F3187] rounded-md flex justify-center items-center' tabIndex={0}>
-      <input type="text" value={value} placeholder='Search' className='w-90 px-4 py-2 focus:outline-none'/>
+      <input type="text" value={value} placeholder='Search movie titles' className='w-90 px-4 py-2 focus:outline-none'/>
 
       <button onClick={onClick} className='mr-4'>
         <svg width="23" height="24" viewBox="0 0 23 24" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -7,6 +7,7 @@ import SeeMore from "../components/navLinks/SeeMore";
 import DropDownBar from "../components/DropDownBar";
 import SearchBar from "../components/SearchBar";
 import MovieCard from "../components/MovieCard";
+import HeroSearchBar from "../components/HeroSearchBar";
 
 const Home = () => {
   return <main>Home
@@ -30,6 +31,9 @@ const Home = () => {
     />
     <SearchBar/>
     <MovieCard/>
+    <HeroSearchBar/>
+
+    
   </main>;
 };
 export default Home;
