@@ -1,7 +1,9 @@
 import React from 'react'
 
-export const SocialMedia = () => {
+export const SocialMedia = ({imageSrc, iconName}) => {
   return (
-    <div>SocialMedia</div>
+    <span>
+      <img src={imageSrc} alt={iconName}/>
+    </span>
   )
 }

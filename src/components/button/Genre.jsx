@@ -1,7 +1,16 @@
-import React from 'react'
+import React, { useState } from 'react'
 
-export const Genre = () => {
+
+const Genre = ({genre}) => {
+  const [selected, setSelected] = useState(false)
+
+  const handleSelect = () => {
+    setSelected(selected => !selected)
+  }
+
   return (
-    <div>Genre</div>
+    <button onClick={handleSelect} className={`px-5 py-2 rounded-3xl border-solid border-[1px] cursor-pointer capitalize border-[#EC5BAA] ${selected? 'bg-[#EC5BAA]' : 'bg-transparent'} `}>{genre}</button>
   )
 }
+
+export default Genre;
