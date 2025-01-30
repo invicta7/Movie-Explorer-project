@@ -8,9 +8,11 @@ import DropDownBar from "../components/DropDownBar";
 import SearchBar from "../components/SearchBar";
 import MovieCard from "../components/MovieCard";
 import HeroSearchBar from "../components/HeroSearchBar";
+import NavBar from "../components/NavBar";
 
 const Home = () => {
-  return <main>Home
+  return <main>
+    <NavBar/>
     <WatchMovie 
       buttonName = {"watch movie"}
     />

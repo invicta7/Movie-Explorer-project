@@ -11,6 +11,11 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+body {
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+
 .movie-card >div{
   transition: 500ms;
 }
