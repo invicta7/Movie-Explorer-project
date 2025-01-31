@@ -1,9 +1,13 @@
 import React from 'react'
+import NavBar from '../components/NavBar'
 
  const MovieDetails = () => {
   return (
-    <div>MovieDetails</div>
+    <div>
+      <NavBar/>
+      MovieDetails
+    </div>
   )
 }
 
-export default MovieDetails
+export default MovieDetails;
