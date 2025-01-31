@@ -33,9 +33,7 @@ const Home = () => {
     />
     <SearchBar/>
     <MovieCard/>
-    <HeroSearchBar/>
-
-    
+     
   </main>;
 };
 export default Home;

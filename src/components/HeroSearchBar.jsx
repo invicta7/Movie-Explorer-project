@@ -3,9 +3,9 @@ import { NavLink } from 'react-router-dom'
 
 const HeroSearchBar = ({value, movieTitles, linkPath}) => {
   return (
-    <form className='h-10 overflow-visible flex justify-end flex-row-reverse items-start w-fit my-14 group'>
+    <form className='h-10 overflow-visible flex justify-end flex-row-reverse items-start w-fit group'>
         <NavLink to={`${linkPath}`} className="peer flex items-center h-full">
-            <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg width="20" height="20" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M25 25L18.0711 18.0711M18.0711 18.0711C19.8807 16.2614 21 13.7614 21 11C21 5.47715 16.5228 1 11 1C5.47715 1 1 5.47715 1 11C1 16.5228 5.47715 21 11 21C13.7614 21 16.2614 19.8807 18.0711 18.0711Z" stroke="#EBFAFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
         </NavLink>
