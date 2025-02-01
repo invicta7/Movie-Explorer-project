@@ -4,7 +4,7 @@ const MoreInfo = ({buttonName, onClick}) => {
   return (
     <button
     onClick={onClick}
-    className={`border-[#228EE5] border-[1px] text-[#EBFAFF] flex justify-center items-center gap-2 px-5 py-2 capitalize cursor-pointer hover:bg-[#228EE5] ${buttonName.toLowerCase() === "more info"? "rounded-3xl": "rounded-lg"}`}
+    className={`border-[#228EE5] border-[1px] text-[#EBFAFF] text-nowrap flex justify-center items-center gap-2 px-5 py-2 capitalize cursor-pointer hover:bg-[#228EE5] ${buttonName.toLowerCase() === "more info"? "rounded-3xl": "rounded-lg"}`}
     >
       {buttonName}
 
