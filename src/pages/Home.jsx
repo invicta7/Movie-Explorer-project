@@ -9,12 +9,14 @@ import SearchBar from "../components/SearchBar";
 import MovieCard from "../components/MovieCard";
 import NavBar from "../components/NavBar";
 import Header from "../components/Header";
+import MovieList from "../components/MovieList";
 
 const Home = () => {
   return <main>
     <NavBar/>
     <Header/>
-    <MovieCard/>
+    <MovieList/>
+    
      
   </main>;
 };
