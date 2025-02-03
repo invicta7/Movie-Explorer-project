@@ -61,7 +61,7 @@ const Header = () => {
                 {/* indicator area */}
                 <div className='w-full lg:w-fit px-8 z-40 flex items-center justify-start mb-8 lg:mb-0'>
                   {featuredMovies && featuredMovies.map((featuredMovie, index)=> {
-                    return <button key={featuredMovie.id} className={`cursor-pointer flex items-start justify-center w-25 h-25 md:w-35 md:h-35 overflow-hidden rounded-2xl -mx-2 relative border-[1px] border-[#228de557] ${currentIndex==index? "z-50 w-40 h-40 md:w-50 md:h-50": " "}`}>
+                    return <button key={featuredMovie.id} onClick={()=>setCurrentIndex(index)} className={`cursor-pointer flex items-start justify-center w-25 h-25 md:w-35 md:h-35 overflow-hidden rounded-2xl -mx-2 relative border-[1px] border-[#228de557] ${currentIndex==index? "z-50 w-40 h-40 md:w-50 md:h-50": " "}`}>
                     <img src={API_URL_IMG+featuredMovie.poster_path} alt="movie-poster"/>
                     <span className={`w-full h-full absolute pointer-events-none ${currentIndex==index? " ": "bg-[#030a1b86]"}`}></span>
                   </button>
