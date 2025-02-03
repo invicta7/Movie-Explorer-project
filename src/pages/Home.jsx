@@ -7,31 +7,13 @@ import SeeMore from "../components/navLinks/SeeMore";
 import DropDownBar from "../components/DropDownBar";
 import SearchBar from "../components/SearchBar";
 import MovieCard from "../components/MovieCard";
-import HeroSearchBar from "../components/HeroSearchBar";
 import NavBar from "../components/NavBar";
+import Header from "../components/Header";
 
 const Home = () => {
   return <main>
     <NavBar/>
-    <WatchMovie 
-      buttonName = {"watch movie"}
-    />
-    <Genre
-      genre={'animation'}
-    />
-    <MoreInfo
-      buttonName = {"more info"}
-    />
-    <FooterLinks
-    linkName={'Sample name'}
-    />
-    <SeeMore/>
-    <DropDownBar
-    placeholderText={'Release year'}
-    categoryName={'release-year'}
-    inputName={'year'}
-    />
-    <SearchBar/>
+    <Header/>
     <MovieCard/>
      
   </main>;

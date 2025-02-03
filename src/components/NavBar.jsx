@@ -6,7 +6,7 @@ import StarIcon from '../assets/svgs/star-icon-favorite.svg'
 
 const NavBar = () => {
   return (
-    <nav className='w-full md:w-[85%] max-w-[1232px] px-4 py-0 rounded-2xl flex items-center justify-between h-[60px] mx-auto bg-[#1A19194D] backdrop-blur-[8px] border-[1px] border-[#228de557]'>
+    <nav className='w-full md:w-[85%] max-w-[1232px] px-4 py-0 rounded-2xl flex items-center justify-between h-[60px] bg-[#1A19194D] backdrop-blur-[8px] border-[1px] border-[#228de557] absolute top-4 left-1/2 transform -translate-x-1/2 z-[1000000]'>
       <div className='flex gap-4 md:gap-8 items-center justify-start'>
         <NavLink to="/">
           <img src="/Logo- light 1.png" alt="website-logo" className='w-8 h-8'/>
