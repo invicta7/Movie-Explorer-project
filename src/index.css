@@ -21,8 +21,8 @@
 }
 
 
-@media only screen and (max-width: 900px) and (orientation: landscape) {
+@media only screen and (max-width: 1024px) and (orientation: landscape) {
  section {
-  min-height: 700px;
+  min-height: 750px;
  }
 }
