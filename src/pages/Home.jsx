@@ -10,13 +10,14 @@ import MovieCard from "../components/MovieCard";
 import NavBar from "../components/NavBar";
 import Header from "../components/Header";
 import MovieList from "../components/MovieList";
+import Footer from "../components/Footer";
 
 const Home = () => {
   return <main>
     <NavBar/>
     <Header/>
     <MovieList/>
-    <Genre/>
+    <Footer/>
     
      
   </main>;

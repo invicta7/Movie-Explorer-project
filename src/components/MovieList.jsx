@@ -24,14 +24,13 @@ const MovieList = () => {
         <h1>Movies</h1>
         <SeeMore />
       </div>
-      <div className="flex justify-around items-center w-full h-[30px] absolute">
-      
-        <Genre/>
+      <div className="flex justify-start absolute w-full h-[20px]">
+      <Genre/>
       </div>
       <motion.div 
       initial={{scale: 0.9}}
       whileHover={{scale: 1}}
-      className="flex items-center justify-between absolute overflow-x-auto scroll-smooth scrollbar-hide flex-wrap">
+      className="flex items-center justify-between  overflow-x-auto scroll-smooth scrollbar-hide flex-wrap relative">
         {getMovies &&
           getMovies.map((movie, index ) =>  {
             return <MovieCard key={movie.id} {...movie} />;

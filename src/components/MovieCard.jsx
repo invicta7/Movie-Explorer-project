@@ -38,7 +38,7 @@ const MovieCard = ({ poster_path, title, genre }) => {
           {title}
         </h3>
         <p className="font-extralight overflow-hidden overflow-ellipsis">
-          {genre}
+          Action and Thriller
         </p>
       </div>
     </div>
