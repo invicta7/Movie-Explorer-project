@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import WatchMovie from './button/WatchMovie';
 import MoreInfo from './button/MoreInfo';
+import { motion } from 'framer-motion';
 
 const Header = () => {
   const API_URL_ONE= "https://api.themoviedb.org/3/discover/movie?api_key=bcc26b7e142a51f09bcf0a149964e33b";
@@ -33,7 +34,10 @@ const Header = () => {
       {featuredMovies && featuredMovies.map((featuredMovie,index)=> {
         return (
           <>
-          <div key={featuredMovie.id} className={`${currentIndex == index? "block" :"hidden"} relative h-full w-full flex items-end justify-center overflow-hidden`}>
+          <motion.div
+          initial = {{scale: 0.9}}
+          whileHover = {{scale: 1.1}}
+          key={featuredMovie.id} className={`${currentIndex == index? "block" :"hidden"} relative h-full w-full flex items-end justify-center overflow-hidden`}>
               
               <picture className='w-full absolute -z-10 top-0'>
                 <source media="(max-width:64rem)" srcSet={API_URL_IMG+featuredMovie.poster_path}/>
@@ -70,7 +74,7 @@ const Header = () => {
 
               </div>
             
-          </div>
+          </motion.div>
           </>
         )        
       })} 

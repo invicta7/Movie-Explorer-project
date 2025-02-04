@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import myImage from "../assets/images/i47IUSsN126K11JUzqQIOi1Mg1M.jpg";
+import Genre from "./button/Genre";
+import { motion } from "framer-motion";
 
-const MovieCard = ({ poster_path, title }) => {
+const MovieCard = ({ poster_path, title, genre }) => {
   const [favorite, setFavorite] = useState(false);
 
   const handleisFavorite = () => {
@@ -36,7 +38,7 @@ const MovieCard = ({ poster_path, title }) => {
           {title}
         </h3>
         <p className="font-extralight overflow-hidden overflow-ellipsis">
-          action/thriller
+          Action and Thriller
         </p>
       </div>
     </div>
