@@ -9,7 +9,6 @@ const Header = () => {
   
   const [featuredMovies, setFeaturedMovies] =  useState([])
   const [currentIndex, setCurrentIndex] = useState(1)
-  console.log(API_URL_ONE, featuredMovies)
 
   useEffect(()=> {
     fetch(API_URL_ONE)  //for hero section
@@ -35,8 +34,7 @@ const Header = () => {
         return (
           <>
           <motion.div
-          initial = {{scale: 0.9}}
-          whileHover = {{scale: 1.1}}
+          initial = {{scale: 1}}
           key={featuredMovie.id} className={`${currentIndex == index? "block" :"hidden"} relative h-full w-full flex items-end justify-center overflow-hidden`}>
               
               <picture className='w-full absolute -z-10 top-0'>
