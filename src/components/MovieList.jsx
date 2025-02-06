@@ -81,32 +81,33 @@ const MovieList = () => {
       </div>
 
       {/* Genre Navigation */}
-      <div className="relative w-full flex items-center mb-12">
+      <div className="relative w-full flex items-center justify-between mb-10">
         <button
           onClick={scrollLeft}
-          className="absolute left-0 bg-gray-200 p-2 rounded-full z-10"
+          className=" left-0 bg-gray-200 p-2 rounded-full z-10"
         >
           ◀
         </button>
 
+        <div 
+        ref={genreContainerRef}
+        className="flex overflow-hidden no-scrollbar whitespace-nowrap scroll-smooth w-[95%] px-10"
+        >
+        {getGenres &&
+        getGenres.map((genre, index) => {
+          return <Genre key={index} id={genre.id} handleGenreSelect={handleGenreSelect} genreName={genre.name} />;
+        })}
+        </div>
+    
         <button
           onClick={scrollRight}
-          className="absolute right-0 bg-gray-200 p-2 rounded-full z-10"
+          className=" right-0 bg-gray-200 p-2 rounded-full z-10"
         >
           ▶
         </button>
       </div>
 
-      <div
-      
-          ref={genreContainerRef}
-          className="flex overflow-hidden no-scrollbar whitespace-nowrap scroll-smooth w-full px-10 mb-10"
-        >
-          {getGenres &&
-            getGenres.map((genre, index) => {
-              return <Genre key={index} id={genre.id} handleGenreSelect={handleGenreSelect} genreName={genre.name} />;
-            })}
-        </div>
+     
       
       <div className="w-full flex items-start justify-center gap-8 scroll-smooth scrollbar-hide flex-wrap relative">
         {getMovies && getMovies.map((movie, index ) =>  {
