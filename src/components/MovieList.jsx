@@ -81,7 +81,7 @@ const MovieList = () => {
       </div>
 
       {/* Genre Navigation */}
-      <div className="relative w-full flex items-center justify-between mb-10">
+      <div className="relative w-full flex items-center justify-between mb-16">
         <button
           onClick={scrollLeft}
           className="p-2  z-10"
@@ -93,7 +93,7 @@ const MovieList = () => {
 
         <div 
         ref={genreContainerRef}
-        className="flex overflow-hidden no-scrollbar whitespace-nowrap scroll-smooth w-[95%] px-10"
+        className="flex overflow-hidden no-scrollbar whitespace-nowrap scroll-smooth w-[90%] px-10"
         >
         {getGenres &&
         getGenres.map((genre, index) => {
