@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 
 
-const Genre = ({genreName}) => {
+const Genre = ({genreName, handleGenreSelect, id}) => {
   const [selected, setSelected] = useState(false)
 
   const handleSelect = () => {
     setSelected(selected => !selected)
+    handleGenreSelect(id)
   }
   
 
