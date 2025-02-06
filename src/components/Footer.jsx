@@ -33,9 +33,9 @@ const teamMembers = [
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-900 text-white py-6 mt-10">
+    <footer className="bg-[#030A1B] text-white py-6 mt-14">
       <div className="container mx-auto flex flex-col items-center mt-30 gap-4">
-      <h1 className="text-5xl font-bold mb-4">Studio</h1>
+      <h1 className="text-5xl font-bold mb-6">Studios</h1>
         {Array.from({ length: Math.ceil(logos.length / 5) }, (_, rowIndex) => (
           <div key={rowIndex} className="flex space-x-6 mb-4 gap-10">
             {logos.slice(rowIndex * 5, rowIndex * 5 + 5).map((logo, index) => (
