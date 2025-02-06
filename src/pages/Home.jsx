@@ -18,6 +18,10 @@ const Home = () => {
     <Header/>
     <MovieList/>
     <Footer/>
+    <Genre/>
+
+  
+
     
      
   </main>;
