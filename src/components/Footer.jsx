@@ -1,24 +1,25 @@
 import React from "react";
+import FooterLinks from "./navLinks/FooterLinks";
 
 const logos = [
-  { name: "Netflix", src: "/Netflix.png", alt: "Netflix Logo" },
-  { name: "TMDB", src: "/Paramount.png", alt: "TMDB Logo" },
-  { name: "Hulu", src: "/HBO.png", alt: "Hulu Logo" },
-  { name: "Disney+", src: "/Disney.png", alt: "Disney+ Logo" },
-  { name: "Amazon Prime", src: "/WB.png", alt: "Amazon Prime Logo" },
-  { name: "Apple TV", src: "/Apple.png", alt: "Apple Tv Logo" },
-  { name: "Amazon Prime", src: "/DC.png", alt: "Amazon Prime Logo" },
-  { name: "AMC", src: "/AMC.png", alt: "AMC Logo" },
-  { name: "Sony", src: "/Sony.png", alt: "Sony Logo" },
-  { name: "Marvel", src: "/Marvel.png", alt: "Marvel Logo" }
+  { name: "Netflix", src: "/Netflix.png", alt: "Netflix Logo", link: "https://www.netflix.com/ng/" },
+  { name: "TMDB", src: "/Paramount.png", alt: "TMDB Logo", link: "https://www.netflix.com/ng/" },
+  { name: "Hulu", src: "/HBO.png", alt: "Hulu Logo", link: "https://www.netflix.com/ng/" },
+  { name: "Disney+", src: "/Disney.png", alt: "Disney+ Logo", link: "https://www.netflix.com/ng/" },
+  { name: "Amazon Prime", src: "/WB.png", alt: "Amazon Prime Logo", link: "https://www.netflix.com/ng/" },
+  { name: "Apple TV", src: "/Apple.png", alt: "Apple Tv Logo", link: "https://www.netflix.com/ng/" },
+  { name: "Amazon Prime", src: "/DC.png", alt: "Amazon Prime Logo", link: "https://www.netflix.com/ng/" },
+  { name: "AMC", src: "/AMC.png", alt: "AMC Logo", link: "https://www.netflix.com/ng/" },
+  { name: "Sony", src: "/Sony.png", alt: "Sony Logo", link: "https://www.netflix.com/ng/" },
+  { name: "Marvel", src: "/Marvel.png", alt: "Marvel Logo", link: "https://www.netflix.com/ng/" }
 ];
 
 const socialLinks = [
-  { name: "Facebook", src: "/icons/facebook.png", link: "https://facebook.com" },
-  { name: "Instagram", src: "/icons/instagram.png", link: "https://instagram.com" },
-  { name: "LinkedIn", src: "/icons/linkedin.png", link: "https://linkedin.com" },
-  { name: "YouTube", src: "/icons/youtube.png", link: "https://youtube.com" },
-  { name: "X", src: "/icons/x.png", link: "https://x.com" }
+  { name: "Facebook", src: "/Facebook.png", link: "https://facebook.com" },
+  { name: "Instagram", src: "/Instagram.png", link: "https://instagram.com" },
+  { name: "LinkedIn", src: "LinkedIn.png", link: "https://linkedin.com" },
+  { name: "YouTube", src: "/YouTube.png", link: "https://youtube.com" },
+  { name: "X", src: "/X.png", link: "https://x.com" }
 ];
 
 const teamMembers = [
@@ -31,23 +32,31 @@ const teamMembers = [
   { name: "OluwaDeborah", src: "/images/Others.png" },
 ];
 
+
+const navigationLinks = [
+  {linkName: "Get the Omni App"},
+  {linkName: "Help"},
+  {linkName: "Site index"},
+  {linkName: "Omni Pro"},
+  {linkName: "Advertising"},
+  {linkName: "Omni Developer"},
+  {linkName: "Get the Jobs"},
+  {linkName: "Privacy Policy"}
+];
+
 const Footer = () => {
   return (
-    <footer className="bg-gray-900 text-white py-6 mt-10">
-      <div className="container mx-auto flex flex-col items-center mt-30 gap-4">
+    <footer className="bg-[#1A19194D] text-white py-6 mt-10 px-4">
+      <div className="container mx-auto flex flex-col items-center mt-30 gap-4 md:flex-wrap justify-start max-w-[1040px]">
       <h1 className="text-5xl font-bold mb-4">Studio</h1>
-        {Array.from({ length: Math.ceil(logos.length / 5) }, (_, rowIndex) => (
-          <div key={rowIndex} className="flex space-x-6 mb-4 gap-10">
-            {logos.slice(rowIndex * 5, rowIndex * 5 + 5).map((logo, index) => (
-              <img
-                key={index}
-                src={logo.src}
-                alt={logo.alt}
-                className="h-[160px] w-[160px] object-contain"
-              />
-            ))}
-          </div>
-        ))}
+      <div className="flex space-x-6 mb-4 gap-10 sm: flex-wrap justify-center items-center md:flex-wrap">
+       {logos.map((logo, index)=>{
+
+      return <img key={index} src={logo.src} alt={logo.alt} className="h-[160px] w-[160px] object-contain"
+/>
+ })}
+ </div>
+        
 
 <h2 className="text-lg font-bold mt-6 mb-4">Meet the Team</h2>
         <div className="flex space-x-6 mb-4">
@@ -58,7 +67,15 @@ const Footer = () => {
             </div>
           ))}
         </div>
-        <div className="flex space-x-4 mb-4">
+<div className="flex justify-center items-center gap-10 my-10 max-w-[1040px] flex-wrap">
+  {navigationLinks.map((link, index) => (
+    <FooterLinks key={index} {...link}/>
+  ))}
+</div>
+
+
+
+        <div className="flex space-x-4 mb-4 gap-4">
           {socialLinks.map((social, index) => (
             <a key={index} href={social.link} target="_blank" rel="noopener noreferrer">
               <img src={social.src} alt={social.name} className="h-8 w-auto object-contain" />
