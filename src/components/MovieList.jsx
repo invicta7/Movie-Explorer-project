@@ -14,7 +14,11 @@ const MovieList = () => {
 
   const API_URL_ONE =
     `https://api.themoviedb.org/3/discover/movie?api_key=bcc26b7e142a51f09bcf0a149964e33b&with_genres=${getSelectedGenre.join(',')}`;
-  const GENRE_API = "https://api.themoviedb.org/3/genre/movie/list?api_key=bcc26b7e142a51f09bcf0a149964e33b";
+
+
+  const GENRE_API =
+    "https://api.themoviedb.org/3/genre/movie/list?api_key=bcc26b7e142a51f09bcf0a149964e33b";
+
 
   const handleGenreSelect = (id) => {
     setGetSelectedGenre((prevIds) =>
@@ -38,6 +42,8 @@ const MovieList = () => {
       });
   }, []);
 
+
+  //Get movies based on their respective genre
   useEffect(() => {
     fetch(API_URL_ONE) // Fetch Movies based on Selected Genre
       .then((res) => res.json())
@@ -96,6 +102,7 @@ const MovieList = () => {
       </div>
 
       {/* Genre Navigation */}
+
       <div className="relative w-full flex items-center justify-between mb-18 mt-4">
         {/* Left Arrow */}
         <motion.button
@@ -116,6 +123,7 @@ const MovieList = () => {
         <div
           ref={genreContainerRef}
           className="flex overflow-hidden no-scrollbar whitespace-nowrap scroll-smooth w-[90%] px-0 "
+
         >
           {getGenres &&
             getGenres.map((genre, index) => (
@@ -126,6 +134,7 @@ const MovieList = () => {
         {/* Right Arrow */}
         <motion.button
           onClick={scrollRight}
+
           className="bg-gray-200 p-2 rounded-full z-10"
           animate={{
             opacity: atEnd ? 0.3 : 1,
@@ -139,16 +148,27 @@ const MovieList = () => {
           </svg>
 
         </motion.button>
+
+          className=" p-2 z-10"
+        >
+          <svg width="8" height="19" viewBox="0 0 8 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M7.47239 8.94757C7.72009 9.25267 7.72009 9.74733 7.47239 10.0524L1.12965 17.8649C0.88195 18.17 0.480349 18.17 0.23265 17.8649C-0.01505 17.5598 -0.01505 17.0652 0.23265 16.7601L6.12689 9.5L0.23265 2.23993C-0.0150494 1.93483 -0.0150494 1.44017 0.23265 1.13507C0.48035 0.829976 0.88195 0.829976 1.12965 1.13507L7.47239 8.94757Z" fill="#EBFAFF"/>
+          </svg>
+        </button>
+
       </div>
 
       {/* Movies Display */}
       <div className="w-full flex items-start justify-center gap-8 scroll-smooth scrollbar-hide flex-wrap relative">
         {getMovies &&
+
           getMovies.map((movie) => (
             <div key={movie.id} whileHover={{ scale: 1.05 }}>
               <MovieCard {...movie} getGenres={getGenres} />
             </div>
           ))}
+
+              
       </div>
     </section>
   );

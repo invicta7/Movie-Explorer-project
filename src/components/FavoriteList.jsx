@@ -1,8 +1,10 @@
 import React from 'react'
 
-const FavoriteList = () => {
+const FavoriteList = ({savedFavorite}) => {
   return (
-    <section>FavoriteList</section>
+    <section>
+      
+    </section>
   )
 }
 
