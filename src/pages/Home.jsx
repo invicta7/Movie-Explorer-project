@@ -11,6 +11,7 @@ import NavBar from "../components/NavBar";
 import Header from "../components/Header";
 import MovieList from "../components/MovieList";
 import Footer from "../components/Footer";
+import MovieDetails from "./MovieDetails";
 
 const Home = () => {
   return <main>
@@ -18,7 +19,8 @@ const Home = () => {
     <Header/>
     <MovieList/>
     <Footer/>
-    <Genre/>
+  
+
 
   
 

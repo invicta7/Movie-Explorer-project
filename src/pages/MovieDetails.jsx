@@ -1,7 +1,7 @@
 import React from 'react'
 import NavBar from '../components/NavBar'
 
- const MovieDetails = () => {
+const MovieDetails = () => {
   return (
     <div>
       <NavBar/>
