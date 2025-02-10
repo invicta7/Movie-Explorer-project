@@ -16,6 +16,10 @@
   transition: 500ms;
 }
 
+.clip-custom {
+  clip-path: inset(3% 0 0 0 round 20% 20% 0 0);;
+}
+
 @media (hover: hover) {
   .movie-card >div {
     opacity: 0;

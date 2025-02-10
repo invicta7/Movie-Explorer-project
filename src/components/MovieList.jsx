@@ -107,7 +107,7 @@ const MovieList = () => {
         {/* Left Arrow */}
         <motion.button
           onClick={scrollLeft}
-          className="bg-gray-200 p-2 rounded-full z-10"
+          className="p-2 rounded-full z-10"
           animate={{
             opacity: atStart ? 0.3 : 1,
             scale: atStart ? 0.8 : 1,
@@ -135,7 +135,7 @@ const MovieList = () => {
         <motion.button
           onClick={scrollRight}
 
-          className="bg-gray-200 p-2 rounded-full z-10"
+          className="p-2 rounded-full z-10"
           animate={{
             opacity: atEnd ? 0.3 : 1,
             scale: atEnd ? 0.8 : 1,

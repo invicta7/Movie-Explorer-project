@@ -95,7 +95,7 @@ const navigationLinks = [
 
 const Footer = () => {
   return (
-    <footer className="bg-[#1A19194D] text-white py-6 mt-10 px-4">
+    <footer className="bg-[#030A1B] text-white py-6 mt-10 px-4">
       <div className="container mx-auto flex flex-col items-center mt-30 gap-4 md:flex-wrap justify-start max-w-[1237px]">
         <h1 className="text-5xl font-bold mb-4">Studio</h1>
         <div className="flex space-x-6 mb-4 gap-10 sm: flex-wrap justify-center items-center md:flex-wrap">
@@ -112,7 +112,7 @@ const Footer = () => {
         </div>
 
         <h2 className="text-lg font-bold mt-6 mb-4">Meet the Team</h2>
-        <div className="flex space-x-6 mb-4">
+        <div className="w-full overflow-hidden flex mb-4">
           {teamMembers.map((member, index) => (
             <div key={index} className="flex flex-col items-center">
               <img
