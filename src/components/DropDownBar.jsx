@@ -2,10 +2,10 @@ import React from 'react'
 
 const DropDownBar = ({placeholderText, categoryName, inputName}) => {
   return (
-    <>
-      <label htmlFor={inputName} className='mr-5 capitalize text-sm'>{inputName}</label>
+    <div className='flex items-center gap-2'>
+      <label htmlFor={inputName} className='mr-4 capitalize text-sm'>{inputName}</label>
       <button className='border-[#0F3187] border-[1px] rounded-3xl w-fit relative px-4 py-2'>
-        <input list={categoryName} id={inputName} placeholder={placeholderText} style={{ width: `${placeholderText.length + 5}ch` }} className="focus:outline-none capitalize"/>
+        <input list={categoryName} id={inputName} placeholder={placeholderText} style={{ width: `${placeholderText.length + 5}ch` }} className="focus:outline-none capitalize text-[#393939] text-sm"/>
         <datalist id={categoryName}>
           {/* <option value="E"/>
           <option value="Firefox"/>
@@ -28,7 +28,7 @@ const DropDownBar = ({placeholderText, categoryName, inputName}) => {
           </svg>
         </span>
       </button>
-     </>
+     </div>
    
     
   )
