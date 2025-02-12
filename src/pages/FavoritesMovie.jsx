@@ -5,13 +5,23 @@ import MovieCard from "../components/MovieCard";
 
 const FavoritesMovie = () => {
   const [favorites, setFavorites] = useState([]);
+   const [getGenres, setGetGenres] = useState([]);
+   const GENRE_API = "https://api.themoviedb.org/3/genre/movie/list?api_key=bcc26b7e142a51f09bcf0a149964e33b";
 
   // Load favorites from localStorage when the component mounts
   useEffect(() => {
     const storedFavorites = JSON.parse(localStorage.getItem("favorites")) || [];
     setFavorites(storedFavorites);
+    console.log(favorites)
   }, []);
 
+  useEffect(() => {
+    fetch(GENRE_API) // Fetch Genres
+      .then((result) => result.json())
+      .then((data) => {
+        setGetGenres(data.genres);
+      });
+  }, []);
   // Function to remove a movie from favorites
   const removeFavorite = (movieId) => {
     const updatedFavorites = favorites.filter((movie) => movie.id !== movieId);
@@ -34,7 +44,7 @@ const FavoritesMovie = () => {
         ) : (
           <div className="flex flex-wrap gap-6 justify-center">
             {favorites.map((movie) => (
-              <MovieCard key={movie.id} movie={movie} />
+              <MovieCard key={movie.id} {...movie} getGenres={getGenres}/>
               // <div  className="relative group">
 
               //   {/* Remove button */}

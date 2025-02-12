@@ -37,7 +37,7 @@ const MovieList = () => {
     );
   };
 
-  const handleFavoriteClick = (movie) => {
+  const handleFavoriteClick = (movie, favorite) => {
     setSavedFavorite((prevFavs) => {
       const favorites = Array.isArray(prevFavs) ? prevFavs : []; // Ensure it's an array
       const updatedFavorites = favorites.some((fav) => fav.id === movie.id)
@@ -46,6 +46,7 @@ const MovieList = () => {
 
       return updatedFavorites;
     });
+    favorite=false
   };
 
   useEffect(() => {
