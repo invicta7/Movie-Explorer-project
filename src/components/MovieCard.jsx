@@ -11,13 +11,32 @@ const MovieCard = ({
   getGenres,
   handleFavoriteClick,
   movie,
+  favoriteFilm
 }) => {
-  const [favorite, setFavorite] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(false);
 
   const handleisFavorite = () => {
-    setFavorite((favorite) => !favorite);
+    // setFavorite((favorite) => !favorite);
+    if(favoriteFilm.some((fav) => fav.id === movie.id)) {
+      console.log("see")
+      setIsFavorite(false)
+    }else {
+      console.log("no see")
+      setIsFavorite(true)
+    }
+
     handleFavoriteClick(movie);
   };
+
+  useEffect(()=> {
+    if(favoriteFilm && favoriteFilm.some((fav) => fav.id === movie.id)) {
+      console.log("see")
+      setIsFavorite(true)
+    }else {
+      console.log("no see")
+      setIsFavorite(false)
+    }
+  },[handleisFavorite])
 
   //add to favorite
 
@@ -41,7 +60,7 @@ const MovieCard = ({
       >
         <span
           className={`${
-            favorite ? "hidden" : "inline"
+            isFavorite === true ? "hidden" : "inline"
           } absolute w-1 h-6 bg-white rounded-2xl`}
         ></span>
         <span className="w-6 h-1 bg-white rounded-2xl"></span>
@@ -55,11 +74,11 @@ const MovieCard = ({
           {genre_ids?.length > 0 &&
             genre_ids.map((id, index) => {
               const relevantGenre = getGenres.find((genre) => genre.id === id);
-              return relevantGenre ? (
+              return relevantGenre? index < 2?(
                 <p key={relevantGenre.id}>
                   {index === 1 ? `/${relevantGenre.name}` : relevantGenre.name}
                 </p>
-              ) : null;
+              ): null : null;
             })}
         </div>
       </div>

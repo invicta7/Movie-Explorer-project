@@ -22,9 +22,7 @@ const MovieList = () => {
     localStorage.setItem("favorites", JSON.stringify(savedFavorite));
   }, [savedFavorite]);
 
-  const API_URL_ONE = `https://api.themoviedb.org/3/discover/movie?api_key=bcc26b7e142a51f09bcf0a149964e33b&with_genres=${getSelectedGenre.join(
-    ","
-  )}`;
+  const API_URL_ONE = `https://api.themoviedb.org/3/discover/movie?api_key=bcc26b7e142a51f09bcf0a149964e33b&with_genres=${getSelectedGenre.join(",")}`;
 
   const GENRE_API =
     "https://api.themoviedb.org/3/genre/movie/list?api_key=bcc26b7e142a51f09bcf0a149964e33b";
@@ -37,16 +35,14 @@ const MovieList = () => {
     );
   };
 
-  const handleFavoriteClick = (movie, favorite) => {
+  const handleFavoriteClick = (movie) => {
     setSavedFavorite((prevFavs) => {
       const favorites = Array.isArray(prevFavs) ? prevFavs : []; // Ensure it's an array
       const updatedFavorites = favorites.some((fav) => fav.id === movie.id)
         ? favorites.filter((prevFav) => prevFav.id !== movie.id) // Remove if exists
         : [...favorites, movie]; // Add if not exists
-
       return updatedFavorites;
     });
-    favorite=false
   };
 
   useEffect(() => {
@@ -121,6 +117,7 @@ const MovieList = () => {
     <section className="max-w-[1232px] mx-auto px-4">
       <div className="text-2xl flex justify-between mb-8">
         <h1>Favorites</h1>
+        <SeeMore linkPath={"/favorites"}/>
       </div>
       <FavoriteList
         savedFavorite={savedFavorite}
@@ -215,6 +212,7 @@ const MovieList = () => {
                 getGenres={getGenres}
                 handleFavoriteClick={handleFavoriteClick}
                 movie={movie}
+                favoriteFilm={savedFavorite}
               />
             </div>
           ))}

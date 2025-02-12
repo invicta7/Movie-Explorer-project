@@ -11,7 +11,12 @@ const HeroSearchBar = ({}) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     navigateTo(`/search?search=${queriedMovie}`)
-  }  
+  } 
+  
+  const handleOtherSubmit = (movie) => {
+    setQueriedMovie(movie.title)
+    console.log(queriedMovie)
+  }
 
   useEffect(()=> {
     fetch(SEARCH_API) // Fetch queried movie
@@ -39,7 +44,7 @@ const HeroSearchBar = ({}) => {
             <div className='w-full h-fit bg-white flex-col hidden group-hover:flex'>
                 {movieResults && movieResults.map((movie, index) => {
                     return (
-                        <span className='cursor-pointer w-full px-4 py-2 text-black hover:bg-gray-400 text-nowrap text-ellipsis overflow-hidden' key={index}>{movie.title}</span>
+                        <button className='cursor-pointer w-full px-4 py-2 text-black text-left hover:bg-gray-400 text-nowrap text-ellipsis overflow-hidden' key={index} onClick={(movie)=>handleOtherSubmit(movie)}>{movie.title}</button>
                     )
                 }
             )}
