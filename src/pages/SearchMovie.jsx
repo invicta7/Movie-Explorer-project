@@ -21,6 +21,7 @@ const SearchMovie = () => {
   const [selectedReleaseYear, setSelectedReleaseYear] = useState('');
   const [countries, setCountries] = useState();
   const [selectedCountry, setSelectedCountry] = useState('');  
+  const [favorites, setFavorites] = useState([]);
   const genreContainerRef = useRef(null); // Reference for genre scrolling
 
   const API_KEY = "bcc26b7e142a51f09bcf0a149964e33b";
@@ -75,6 +76,27 @@ const SearchMovie = () => {
   }, []);
 
 
+  //this is so that favorite movies can still be added and removed here
+   useEffect(() => {
+      const storedFavorites = JSON.parse(localStorage.getItem("favorites"));
+      setFavorites(storedFavorites);
+    }, []);
+
+    const handleFavoriteClick = (movie) => {
+      setFavorites((prevFavs) => {
+        const favoritesSelection = Array.isArray(prevFavs) ? prevFavs : []; // Ensure it's an array
+        const updatedFavorites = favoritesSelection.some((fav) => fav.id === movie.id)
+          ? favorites.filter((prevFav) => prevFav.id !== movie.id) // Remove if exists
+          : [...favorites, movie]; // Add if not exists
+
+         //to store back into local storage
+        localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
+        return updatedFavorites;
+      });
+    };
+
+
+
  
 
  // Function to check scroll position
@@ -124,6 +146,8 @@ const SearchMovie = () => {
         prevIds.includes(id) ? prevIds.filter((prevId) => prevId !== id) : [...prevIds, id]
       );
     };
+
+    
 
   return (
     <section className="min-h-screen p-6 text-white">
@@ -248,7 +272,14 @@ const SearchMovie = () => {
         {queriedMovies?.length > 0 ? (
           queriedMovies.map((movie) => (
             <>
-            <MovieCard key={movie.id} {...movie} getGenres={getGenres} />
+            <MovieCard 
+            key={movie.id} 
+            {...movie} 
+            getGenres={getGenres} 
+            movie={movie}
+            handleFavoriteClick={handleFavoriteClick}
+            favoriteFilm={favorites}
+            />
             </>
           ))
         ) : (

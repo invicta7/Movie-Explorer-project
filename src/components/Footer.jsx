@@ -72,14 +72,14 @@ const socialLinks = [
   { name: "X", src: "/X.png", link: "https://x.com" },
 ];
 
-const teamMembers = [
-  { name: "Obong", src: "/images/Obong.png" },
+const teamMembers = [  
   { name: "Busari", src: "/images/Busari.png" },
-  { name: "Victor Iriemi", src: "/images/OluwaDeborah.png" },
+  { name: "Obong", src: "/images/Obong.png" },
+  { name: "Victor Iriemi", src: "/images/Victor.png" },
   { name: "Tobi", src: "/images/Tobi.png" },
   { name: "AbdulKabir", src: "/images/AbdulKabir.png" },
   { name: "Shevs", src: "/images/Shev.png" },
-  { name: "OluwaDeborah", src: "/images/Others.png" },
+  { name: "OluwaDeborah", src: "/images/OluwaDeborah.png" },
 ];
 
 const navigationLinks = [
@@ -96,9 +96,9 @@ const navigationLinks = [
 const Footer = () => {
   return (
     <footer className="bg-[#030A1B] text-white py-6 mt-10 px-4">
-      <div className="container mx-auto flex flex-col items-center mt-30 gap-4 md:flex-wrap justify-start max-w-[1237px]">
-        <h1 className="text-5xl font-bold mb-4">Studio</h1>
-        <div className="flex space-x-6 mb-4 gap-10 sm: flex-wrap justify-center items-center md:flex-wrap">
+      <div className="container mx-auto flex flex-col items-center mt-30 gap-4 md:flex-wrap justify-start max-w-[1040px]">
+        <h1 className="text-5xl font-bold mb-6">Studios</h1>
+        <div className="flex mb-4 gap-12 flex-wrap justify-center items-center md:flex-wrap">
           {logos.map((logo, index) => {
             return (
               <img
@@ -111,8 +111,8 @@ const Footer = () => {
           })}
         </div>
 
-        <h2 className="text-lg font-bold mt-6 mb-4">Meet the Team</h2>
-        <div className="w-full overflow-hidden flex mb-4">
+        <h2 className="text-2xl font-bold mt-12 mb-4">Meet the Team</h2>
+        <div className="w-full overflow-hidden flex justify-center mb-4">
           {teamMembers.map((member, index) => (
             <div key={index} className="flex flex-col items-center">
               <img

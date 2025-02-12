@@ -17,6 +17,7 @@ const FavoriteList = ({ savedFavorite, getGenres, handleFavoriteClick }) => {
                 getGenres={getGenres}
                 handleFavoriteClick={handleFavoriteClick}
                 movie={movie}
+                favoriteFilm={savedFavorite}
               />
             );
           })}

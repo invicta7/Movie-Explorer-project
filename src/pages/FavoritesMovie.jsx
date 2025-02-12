@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import NavBar from "../components/NavBar";
-import FavoriteList from "../components/FavoriteList";
+import Footer from "../components/Footer";
 import MovieCard from "../components/MovieCard";
 
 const FavoritesMovie = () => {
@@ -10,9 +10,8 @@ const FavoritesMovie = () => {
 
   // Load favorites from localStorage when the component mounts
   useEffect(() => {
-    const storedFavorites = JSON.parse(localStorage.getItem("favorites")) || [];
+    const storedFavorites = JSON.parse(localStorage.getItem("favorites"));
     setFavorites(storedFavorites);
-    console.log(favorites)
   }, []);
 
   useEffect(() => {
@@ -22,10 +21,17 @@ const FavoritesMovie = () => {
         setGetGenres(data.genres);
       });
   }, []);
+
   // Function to remove a movie from favorites
-  const removeFavorite = (movieId) => {
-    const updatedFavorites = favorites.filter((movie) => movie.id !== movieId);
-    setFavorites(updatedFavorites);
+  const removeFavorite = (movie) => {
+    const updatedFavorites = favorites.filter((fav) => fav.id !== movie.id);
+   
+    setFavorites((prevFavs) => {
+      const favorites = Array.isArray(prevFavs) ? prevFavs : []; // Ensure it's an array
+      const updatedFavorites = favorites.filter((prevFav) => prevFav.id !== movie.id);
+      console.log(favorites)
+      return updatedFavorites;
+    });
     localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
   };
 
@@ -34,8 +40,8 @@ const FavoritesMovie = () => {
       <div>
         <NavBar />
       </div>
-      <div className="max-w-6xl mx-auto px-4 py-8">
-        <h1 className="text-3xl font-semibold mb-6 text-center">
+      <div className="max-w-[1232px] mx-auto px-4 py-8">
+        <h1 className="text-3xl font-semibold mt-20 mb-10 ml-8">
           Favorite Movies
         </h1>
 
@@ -44,7 +50,7 @@ const FavoritesMovie = () => {
         ) : (
           <div className="flex flex-wrap gap-6 justify-center">
             {favorites.map((movie) => (
-              <MovieCard key={movie.id} {...movie} getGenres={getGenres}/>
+              <MovieCard key={movie.id} {...movie} getGenres={getGenres} handleFavoriteClick={removeFavorite} favoriteFilm={favorites} movie={movie}/>
               // <div  className="relative group">
 
               //   {/* Remove button */}
@@ -59,11 +65,7 @@ const FavoritesMovie = () => {
           </div>
         )}
       </div>
-      <div>
-        <h1>FavoritesMovie</h1>
-      </div>
-
-      <FavoriteList />
+      <Footer/>
     </div>
   );
 };

@@ -1,9 +1,9 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 
-const SeeMore = () => {
+const SeeMore = ({linkPath}) => {
   return (
-    <NavLink className="w-fit flex justify-center items-center text-2xl gap-2 text-[#228EE5] hover:underline">
+    <NavLink to={linkPath} className="w-fit flex justify-center items-center text-2xl gap-2 text-[#228EE5] hover:underline">
       See More
 
       <svg width="14" height="12" viewBox="0 0 14 12" fill="none" xmlns="http://www.w3.org/2000/svg" className='mt-1.5'>
