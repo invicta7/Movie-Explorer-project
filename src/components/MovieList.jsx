@@ -3,6 +3,8 @@ import SeeMore from "./navLinks/SeeMore";
 import Genre from "./button/Genre";
 import MovieCard from "./MovieCard";
 import { motion } from "framer-motion";
+import FavoriteList from "./FavoriteList";
+import { p } from "framer-motion/client";
 
 const MovieList = () => {
   const [getMovies, setGetMovies] = useState([]);
@@ -11,19 +13,39 @@ const MovieList = () => {
   const [getSelectedGenre, setGetSelectedGenre] = useState([]);
   const [atStart, setAtStart] = useState(true);
   const [atEnd, setAtEnd] = useState(false);
+  const [savedFavorite, setSavedFavorite] = useState(() => {
+    const storedFavorites = localStorage.getItem("favorites");
+    return storedFavorites ? JSON.parse(storedFavorites) : [];
+  });
 
-  const API_URL_ONE =
-    `https://api.themoviedb.org/3/discover/movie?api_key=bcc26b7e142a51f09bcf0a149964e33b&with_genres=${getSelectedGenre.join(',')}`;
+  useEffect(() => {
+    localStorage.setItem("favorites", JSON.stringify(savedFavorite));
+  }, [savedFavorite]);
 
+  const API_URL_ONE = `https://api.themoviedb.org/3/discover/movie?api_key=bcc26b7e142a51f09bcf0a149964e33b&with_genres=${getSelectedGenre.join(
+    ","
+  )}`;
 
   const GENRE_API =
     "https://api.themoviedb.org/3/genre/movie/list?api_key=bcc26b7e142a51f09bcf0a149964e33b";
 
-
   const handleGenreSelect = (id) => {
     setGetSelectedGenre((prevIds) =>
-      prevIds.includes(id) ? prevIds.filter((prevId) => prevId !== id) : [...prevIds, id]
+      prevIds.includes(id)
+        ? prevIds.filter((prevId) => prevId !== id)
+        : [...prevIds, id]
     );
+  };
+
+  const handleFavoriteClick = (movie) => {
+    setSavedFavorite((prevFavs) => {
+      const favorites = Array.isArray(prevFavs) ? prevFavs : []; // Ensure it's an array
+      const updatedFavorites = favorites.some((fav) => fav.id === movie.id)
+        ? favorites.filter((prevFav) => prevFav.id !== movie.id) // Remove if exists
+        : [...favorites, movie]; // Add if not exists
+
+      return updatedFavorites;
+    });
   };
 
   useEffect(() => {
@@ -42,7 +64,6 @@ const MovieList = () => {
       });
   }, []);
 
-
   //Get movies based on their respective genre
   useEffect(() => {
     fetch(API_URL_ONE) // Fetch Movies based on Selected Genre
@@ -55,7 +76,8 @@ const MovieList = () => {
   // Function to check scroll position
   const checkScroll = () => {
     if (genreContainerRef.current) {
-      const { scrollLeft, scrollWidth, clientWidth } = genreContainerRef.current;
+      const { scrollLeft, scrollWidth, clientWidth } =
+        genreContainerRef.current;
       setAtStart(scrollLeft === 0);
       setAtEnd(scrollLeft + clientWidth >= scrollWidth - 1);
     }
@@ -97,6 +119,24 @@ const MovieList = () => {
   return (
     <section className="max-w-[1232px] mx-auto px-4">
       <div className="text-2xl flex justify-between mb-8">
+        <h1>Favorites</h1>
+      </div>
+      <div>
+        <div className="relative w-full flex  mb-18 gap-10">
+          {savedFavorite &&
+            savedFavorite.map((movie) => {
+              return (
+                <MovieCard
+                  {...movie}
+                  getGenres={getGenres}
+                  handleFavoriteClick={handleFavoriteClick}
+                  movie={movie}
+                />
+              );
+            })}
+        </div>
+      </div>
+      <div className="text-2xl flex justify-between mb-8">
         <h1>Movies</h1>
         <SeeMore />
       </div>
@@ -115,26 +155,40 @@ const MovieList = () => {
           transition={{ duration: 0.3 }}
           disabled={atStart}
         >
-         <svg width="9" height="19" viewBox="0 0 9 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path fill-rule="evenodd" clip-rule="evenodd" d="M0.929952 8.94757C0.682252 9.25267 0.682252 9.74733 0.929952 10.0524L7.27269 17.8649C7.52039 18.17 7.92199 18.17 8.16969 17.8649C8.41739 17.5598 8.41739 17.0652 8.16969 16.7601L2.27545 9.5L8.16969 2.23993C8.41739 1.93483 8.41739 1.44017 8.16969 1.13507C7.92199 0.829976 7.52039 0.829976 7.27269 1.13507L0.929952 8.94757Z" fill="#EBFAFF"/>
-         </svg> 
+          <svg
+            width="9"
+            height="19"
+            viewBox="0 0 9 19"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M0.929952 8.94757C0.682252 9.25267 0.682252 9.74733 0.929952 10.0524L7.27269 17.8649C7.52039 18.17 7.92199 18.17 8.16969 17.8649C8.41739 17.5598 8.41739 17.0652 8.16969 16.7601L2.27545 9.5L8.16969 2.23993C8.41739 1.93483 8.41739 1.44017 8.16969 1.13507C7.92199 0.829976 7.52039 0.829976 7.27269 1.13507L0.929952 8.94757Z"
+              fill="#EBFAFF"
+            />
+          </svg>
         </motion.button>
 
         <div
           ref={genreContainerRef}
           className="flex overflow-hidden no-scrollbar whitespace-nowrap scroll-smooth w-[90%] px-0 "
-
         >
           {getGenres &&
             getGenres.map((genre, index) => (
-              <Genre key={index} id={genre.id} handleGenreSelect={handleGenreSelect} genreName={genre.name} />
+              <Genre
+                key={index}
+                id={genre.id}
+                handleGenreSelect={handleGenreSelect}
+                genreName={genre.name}
+              />
             ))}
         </div>
 
         {/* Right Arrow */}
         <motion.button
           onClick={scrollRight}
-
           className="p-2 rounded-full z-10"
           animate={{
             opacity: atEnd ? 0.3 : 1,
@@ -143,26 +197,36 @@ const MovieList = () => {
           transition={{ duration: 0.3 }}
           disabled={atEnd}
         >
-          <svg width="8" height="19" viewBox="0 0 8 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path fill-rule="evenodd" clip-rule="evenodd" d="M7.47239 8.94757C7.72009 9.25267 7.72009 9.74733 7.47239 10.0524L1.12965 17.8649C0.88195 18.17 0.480349 18.17 0.23265 17.8649C-0.01505 17.5598 -0.01505 17.0652 0.23265 16.7601L6.12689 9.5L0.23265 2.23993C-0.0150494 1.93483 -0.0150494 1.44017 0.23265 1.13507C0.48035 0.829976 0.88195 0.829976 1.12965 1.13507L7.47239 8.94757Z" fill="#EBFAFF"/>
+          <svg
+            width="8"
+            height="19"
+            viewBox="0 0 8 19"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M7.47239 8.94757C7.72009 9.25267 7.72009 9.74733 7.47239 10.0524L1.12965 17.8649C0.88195 18.17 0.480349 18.17 0.23265 17.8649C-0.01505 17.5598 -0.01505 17.0652 0.23265 16.7601L6.12689 9.5L0.23265 2.23993C-0.0150494 1.93483 -0.0150494 1.44017 0.23265 1.13507C0.48035 0.829976 0.88195 0.829976 1.12965 1.13507L7.47239 8.94757Z"
+              fill="#EBFAFF"
+            />
           </svg>
-
         </motion.button>
-
-      </div> 
-      
+      </div>
 
       {/* Movies Display */}
       <div className="w-full flex items-start justify-center gap-8 scroll-smooth scrollbar-hide flex-wrap relative">
         {getMovies &&
-
           getMovies.map((movie) => (
             <div key={movie.id} whileHover={{ scale: 1.05 }}>
-              <MovieCard {...movie} getGenres={getGenres} />
+              <MovieCard
+                {...movie}
+                getGenres={getGenres}
+                handleFavoriteClick={handleFavoriteClick}
+                movie={movie}
+              />
             </div>
           ))}
-
-              
       </div>
     </section>
   );

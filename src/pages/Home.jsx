@@ -12,20 +12,17 @@ import Header from "../components/Header";
 import MovieList from "../components/MovieList";
 import Footer from "../components/Footer";
 import MovieDetails from "./MovieDetails";
+import FavoriteList from "../components/FavoriteList";
 
 const Home = () => {
-  return <main>
-    <NavBar/>
-    <Header/>
-    <MovieList/>
-    <Footer/>
-  
-
-
-  
-
-    
-     
-  </main>;
+  return (
+    <main>
+      <NavBar />
+      <Header />
+      <FavoriteList />
+      <MovieList />
+      <Footer />
+    </main>
+  );
 };
 export default Home;
