@@ -121,21 +121,11 @@ const MovieList = () => {
       <div className="text-2xl flex justify-between mb-8">
         <h1>Favorites</h1>
       </div>
-      <div>
-        <div className="relative w-full flex  mb-18 gap-10">
-          {savedFavorite &&
-            savedFavorite.map((movie) => {
-              return (
-                <MovieCard
-                  {...movie}
-                  getGenres={getGenres}
-                  handleFavoriteClick={handleFavoriteClick}
-                  movie={movie}
-                />
-              );
-            })}
-        </div>
-      </div>
+      <FavoriteList
+        savedFavorite={savedFavorite}
+        getGenres={getGenres}
+        handleFavoriteClick={handleFavoriteClick}
+      />
       <div className="text-2xl flex justify-between mb-8">
         <h1>Movies</h1>
         <SeeMore />
