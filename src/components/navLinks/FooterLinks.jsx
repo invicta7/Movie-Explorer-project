@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom'
 
 const FooterLinks = ({linkName}) => {
   return (
-    <NavLink className='w-fit flex justify-center items-center text-2xl gap-2 capitalize hover:underline'>
+    <NavLink className='w-fit flex justify-center items-center gap-2 capitalize hover:underline'>
       {linkName}
 
       <svg width="8" height="19" viewBox="0 0 8 19" fill="none" xmlns="http://www.w3.org/2000/svg" className='mt-1'>

@@ -26,8 +26,7 @@ const NavBar = () => {
       </div>
 
       <div className='flex gap-4 md:gap-8 items-center justify-end'>
-        <HeroSearchBar
-        linkPath={'/search'}/>
+        <HeroSearchBar/>
         <NavLink className={`w-fit relative px-2 flex flex-col items-center group`} to=' '>
           <svg width="16" height="20" viewBox="0 0 22 28" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd" clip-rule="evenodd" d="M5.00044 6C5.00044 2.68629 7.68673 0 11.0004 0C14.3142 0 17.0004 2.68629 17.0004 6C17.0004 9.31371 14.3142 12 11.0004 12C7.68673 12 5.00044 9.31371 5.00044 6Z" fill="#EBFAFF"/>

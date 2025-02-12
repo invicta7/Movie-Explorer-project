@@ -16,7 +16,6 @@ const MovieCard = ({
 
   const handleisFavorite = () => {
     setFavorite((favorite) => !favorite);
-
     handleFavoriteClick(movie);
   };
 

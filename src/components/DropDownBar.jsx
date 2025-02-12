@@ -1,25 +1,28 @@
-import React from 'react'
+import React, { useState } from 'react'
 
-const DropDownBar = ({placeholderText, categoryName, inputName}) => {
+const DropDownBar = ({placeholderText, categoryName, inputName, options, onChange, value, onClick}) => {
   return (
     <div className='flex items-center gap-2'>
       <label htmlFor={inputName} className='mr-4 capitalize text-sm'>{inputName}</label>
       <button className='border-[#0F3187] border-[1px] rounded-3xl w-fit relative px-4 py-2'>
-        <input list={categoryName} id={inputName} placeholder={placeholderText} style={{ width: `${placeholderText.length + 5}ch` }} className="focus:outline-none capitalize text-[#393939] text-sm"/>
+        <input 
+        list={categoryName} 
+        id={inputName} 
+        placeholder={placeholderText} 
+        value={value} 
+        style={{ width: `${placeholderText.length + 5}ch` }} 
+        className="focus:outline-none capitalize text-[#393939] text-sm" 
+        onChange={onChange}
+        />
+
         <datalist id={categoryName}>
-          {/* <option value="E"/>
-          <option value="Firefox"/>
-          <option value="Chrome"/>
-          <option value="Opera"/>
-          <option value="Safari"/> 
-          */}
-          {/* {options.map((option, index) => {
+          {options && options.map((option, index) => {
                 return (
-                    <option key={index}>{option}</option>
+                    option.english_name? <option key={index} value={option.english_name}/> : <option key={index} value={option}/>
                 )
             }
             )}
-          */}
+         
         </datalist>
 
         <span className='bg-[#030A1B] absolute z-10 right-[1rem] top-0 h-full flex items-center pointer-events-none'>
