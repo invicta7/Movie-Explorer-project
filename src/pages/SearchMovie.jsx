@@ -1,42 +1,83 @@
 import {React, useEffect, useRef, useState} from 'react'
 import NavBar from '../components/NavBar';
 import SearchBar from '../components/SearchBar';
-import MovieList from '../components/MovieList';
 import MovieCard from '../components/MovieCard';
 import Footer from '../components/Footer';
 import { motion } from "framer-motion";
 import Genre from '../components/button/Genre';
 import pictorial from '../assets/images/logo searchlogo 1.png';
 import DropDownBar from '../components/DropDownBar';
+import { useSearchParams } from 'react-router-dom';
 
 const SearchMovie = () => {
-  const [movies, setMovies] = useState([]);
+  const [searchParam, setSearchParam] = useSearchParams();
+  const searchKeyword = searchParam.get("search")
+  const [queriedMovies, setQueriedMovies] = useState([]);
   const [atStart, setAtStart] = useState(true);
   const [atEnd, setAtEnd] = useState(false);
   const [getGenres, setGetGenres] = useState([]);
+  const [movieQuery, setMovieQuery] = useState(searchKeyword);
+  const [releaseYear, setReleaseYear] = useState([]);
+  const [selectedReleaseYear, setSelectedReleaseYear] = useState('');
+  const [countries, setCountries] = useState();
+  const [selectedCountry, setSelectedCountry] = useState('');  
   const genreContainerRef = useRef(null); // Reference for genre scrolling
+
   const API_KEY = "bcc26b7e142a51f09bcf0a149964e33b";
   const GENRE_API =
   "https://api.themoviedb.org/3/genre/movie/list?api_key=bcc26b7e142a51f09bcf0a149964e33b";
+  const COUNTRY_API = "https://api.themoviedb.org/3/configuration/countries?api_key=bcc26b7e142a51f09bcf0a149964e33b";
 
-  const fetchMovies = async (query) => {
+
+  useEffect(()=> {
+    if(searchKeyword) {
+      fetch(`https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${movieQuery}&include_adult=false`) // Fetch queried movie
+      .then((result) => result.json())
+      .then((data) => {
+        setQueriedMovies(data.results);
+      });
+    }
+    }, [])
+
+
+  const fetchMovies = async (e) => {
+    e.preventDefault();
     const response = await fetch(
-      `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${query}&include_adult=false`
+      `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${movieQuery}&primary_release_year=${selectedReleaseYear}&include_adult=false`
     );
     const data = await response.json();
-    setMovies(data.results || []);
+    setQueriedMovies(data.results);
+    console.log(countries)
   };
 
   useEffect(() => {
+    const currentDate = new Date()
+    let thisYear = currentDate.getFullYear()
+    let yearsArray = []
+
+    for (let i=0; i<30; i++) {
+        yearsArray.push(thisYear)
+        thisYear -= 1;
+    }
+    setReleaseYear(yearsArray);
+
+    fetch(COUNTRY_API) // Fetch Country
+    .then((res) => res.json())
+    .then((data) => {
+      setCountries(data);
+    });
+
     fetch(GENRE_API) // Fetch Genres
       .then((result) => result.json())
       .then((data) => {
         setGetGenres(data.genres);
       });
   }, []);
-  
 
-    // Function to check scroll position
+
+ 
+
+ // Function to check scroll position
     const checkScroll = () => {
       if (genreContainerRef.current) {
         const { scrollLeft, scrollWidth, clientWidth } = genreContainerRef.current;
@@ -88,11 +129,11 @@ const SearchMovie = () => {
     <section className="min-h-screen p-6 text-white">
       <NavBar/>
       
-      <div className='capitalize mt-30 mx-auto max-w-[1184px] relative'>
-        <span className='p-2 w-fit h-12 rounded-2xl bg-[#228EE5] clip-custom'>advanced search</span>
-        <div className='z-10 bg-[#030A1B] border-[1px] border-[#228EE5] rounded-2xl p-4 mt-4'>
+      <div className='capitalize mt-30 mx-auto max-w-[1184px] relative overflow-hidden lg:overflow-visible h-fit'>
+        <span className='p-2 pt-6 lg:pt-2 w-fit lg:h-12 rounded-2xl bg-[#228EE5] clip-custom absolute -top-4 right-6 lg:-z-2 lg:-top-8 lg:left-2'>advanced search</span>
+        <div className='z-10 bg-[#030A1B] border-[1px] border-[#228EE5] rounded-2xl p-4 lg:mt-4'>
 
-          <div className='flex flex-col lg:flex-row items-center justify-center gap-12'>
+          <form onSubmit={fetchMovies} className='flex flex-col lg:flex-row items-center justify-center gap-12'>
 
             <div className='w-full lg:w-1/4 flex justify-left lg:items-end lg:justify-end pt-4'>
               <img src={pictorial} alt="cinema-graphic" className='w-1/2 lg:w-full lg:-mr-4' />
@@ -100,20 +141,28 @@ const SearchMovie = () => {
 
             <div className='w-full lg:w-3/4 flex flex-wrap items-start lg:grid lg:grid-cols-6 lg:grid-rows-2 gap-6 lg:gap-y-12 lg:px-8'>
               <div className='w-full max-w-90 lg:w-auto lg:col-span-3 lg:col-start-1 lg:row-start-2 flex items-center justify-end'>
-                <SearchBar onSearch={fetchMovies} onClick={fetchMovies}/>
+                <SearchBar
+                value={movieQuery}
+                onChange={(e)=>setMovieQuery(e.target.value)}/>
               </div>
               <div className='lg:col-span-2 lg:col-start-1 flex items-center justify-end'>
-                <DropDownBar 
+                <DropDownBar
+                value={selectedReleaseYear}
+                onChange={(e)=>{setSelectedReleaseYear(e.target.value)}} 
                 inputName={'year'}
                 categoryName={'release-year'}
                 placeholderText={'year'}
-                />
+                options={releaseYear}
+              />
               </div>
               <div className='lg:col-span-2 lg:col-start-3 flex items-center justify-end'>
                 <DropDownBar 
+                value={selectedCountry}
+                onChange={(e)=>{setSelectedCountry(e.target.value)}}
                 inputName={'country'}
-                categoryName={'country'}
+                categoryName={'countries'}
                 placeholderText={'country'}
+                options={countries}
                 />
               </div>
 
@@ -134,7 +183,7 @@ const SearchMovie = () => {
               </div>
 
             </div>
-          </div>
+          </form>
 
            {/* Genre Navigation */}
           <div className="relative w-full flex items-center justify-between mt-12 mb-12 lg:mb-0">
@@ -187,11 +236,20 @@ const SearchMovie = () => {
         </div>
       </div>
       
-
+      {
+        queriedMovies?.length > 0 ? (
+        <h1 className='text-2xl mt-10 max-w-[1232px] mx-auto'>Search results for <i className='capitalize'>{movieQuery}</i> </h1>
+        )
+        : 
+        null
+      }     
       <div className="flex flex-wrap gap-12 mt-24 mx-auto justify-center">
-        {movies?.length > 0 ? (
-          movies.map((movie) => (
-            <MovieCard {...movie} getGenres={getGenres} />
+      
+        {queriedMovies?.length > 0 ? (
+          queriedMovies.map((movie) => (
+            <>
+            <MovieCard key={movie.id} {...movie} getGenres={getGenres} />
+            </>
           ))
         ) : (
           <p className="text-center col-span-full">No movies found.</p>

@@ -17,7 +17,7 @@ const Header = () => {
         setFeaturedMovies(data.results.slice(0,4))
     })
   }, [])
-
+  console.log(featuredMovies)
 //   const showNextMovie = () => {
 //     setCurrentIndex(currentIndex === featuredMovies.length - 1 ? 0 : currentIndex + 1)
 //   }  
