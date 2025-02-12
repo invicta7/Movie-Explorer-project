@@ -1,14 +1,26 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion"; // Import motion
 import myImage from "../assets/images/i47IUSsN126K11JUzqQIOi1Mg1M.jpg";
 import Genre from "./button/Genre";
 
-const MovieCard = ({ id, poster_path, title, genre_ids, getGenres }) => {
+const MovieCard = ({
+  id,
+  poster_path,
+  title,
+  genre_ids,
+  getGenres,
+  handleFavoriteClick,
+  movie,
+}) => {
   const [favorite, setFavorite] = useState(false);
 
   const handleisFavorite = () => {
     setFavorite((favorite) => !favorite);
+
+    handleFavoriteClick(movie);
   };
+
+  //add to favorite
 
   return (
     <div
@@ -20,7 +32,7 @@ const MovieCard = ({ id, poster_path, title, genre_ids, getGenres }) => {
         alt="movie poster"
         className="absolute"
         initial={{ scale: 1 }}
-        whileHover={{ scale: 1.2 }}  // Zoom in effect on hover
+        whileHover={{ scale: 1.2 }} // Zoom in effect on hover
         transition={{ duration: 0.8 }}
       />
 
@@ -41,16 +53,15 @@ const MovieCard = ({ id, poster_path, title, genre_ids, getGenres }) => {
           {title}
         </h3>
         <div className="font-extralight overflow-hidden overflow-ellipsis flex flex-nowrap">
-          {genre_ids.map((id, index) => {
-            const relevantGenre = getGenres.find((genre) => genre.id === id);
-            return relevantGenre
-              ? index < 2
-                ? index === 1
-                  ? <p key={relevantGenre.id}>/{relevantGenre.name}</p>
-                  : <p key={relevantGenre.id}>{relevantGenre.name}</p>
-                : null
-              : null;
-          })}
+          {genre_ids?.length > 0 &&
+            genre_ids.map((id, index) => {
+              const relevantGenre = getGenres.find((genre) => genre.id === id);
+              return relevantGenre ? (
+                <p key={relevantGenre.id}>
+                  {index === 1 ? `/${relevantGenre.name}` : relevantGenre.name}
+                </p>
+              ) : null;
+            })}
         </div>
       </div>
     </div>
@@ -58,14 +69,6 @@ const MovieCard = ({ id, poster_path, title, genre_ids, getGenres }) => {
 };
 
 export default MovieCard;
-
-
-
-
-
-
-
-
 
 // import React, { useState } from "react";
 // import { motion } from "framer-motion";
@@ -105,7 +108,6 @@ export default MovieCard;
 //     <motion.div
 //       className="w-[208px] h-[296px] movie-card relative rounded-2xl rounded-tl-none overflow-hidden flex flex-col justify-end before:content-[''] before:absolute before:z-50 before:top-0 before:left-[34%] before:bg-transparent before:rounded-[50%] before:w-4 before:h-4 before:shadow-[-10px_-5px_0_#030A1B] after:content-[''] after:absolute after:top-[23%] after:bg-transparent after:w-4 after:h-4 after:rounded-[50%] after:shadow-[-10px_-5px_0_#030A1B] shadow-[0px_14px_42px_-8px_#7090B033]"
 
-
 //       // When hover starts, set isHovered and fetch the trailer.
 //       onHoverStart={() => {
 //         setIsHovered(true);
@@ -136,9 +138,7 @@ export default MovieCard;
 //           alt={title}
 //           className="absolute w-full h-full object-cover transition-transform duration-300 ease-in-out"
 //         />
-       
 
-        
 //       )}
 
 //       {/* If hovered but no trailer is available yet, show a play button overlay */}
@@ -161,13 +161,11 @@ export default MovieCard;
 //             favorite ? "hidden" : "inline"} absolute w-1 h-6 bg-white rounded-2xl`}>
 //  </span>
 //         <span className="w-6 h-1 bg-white rounded-2xl">
-          
+
 //         </span>
 //       </button>
 
 //       {/* Movie Information (Title and Genres) */}
-
-
 
 //       <div className='w-full bg-gradient-to-t from-[#000000] to-[#00000010] ..." z-30 px-3 pb-3 pt-12 capitalize cursor-context-menu opacity-100'>
 //         <h3 className="text-2xl font-medium overflow-hidden overflow-ellipsis">{title}</h3>
