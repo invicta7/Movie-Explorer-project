@@ -67,19 +67,20 @@ const logos = [
 const socialLinks = [
   { name: "Facebook", src: "/Facebook.png", link: "https://facebook.com" },
   { name: "Instagram", src: "/Instagram.png", link: "https://instagram.com" },
-  { name: "LinkedIn", src: "LinkedIn.png", link: "https://linkedin.com" },
+  { name: "LinkedIn", src: "/LinkedIn.png", link: "https://linkedin.com" },
   { name: "YouTube", src: "/YouTube.png", link: "https://youtube.com" },
   { name: "X", src: "/X.png", link: "https://x.com" },
 ];
 
 const teamMembers = [  
-  { name: "Busari", src: "/images/Busari.png" },
-  { name: "Obong", src: "/images/Obong.png" },
+  { name: "Busari Abdulhakem", src: "/images/Busari.png" },
+  { name: "Obong Uko", src: "/images/Obong.png" },
   { name: "Victor Iriemi", src: "/images/Victor.png" },
-  { name: "Tobi", src: "/images/Tobi.png" },
+  { name: "Tobi Egunjobi", src: "/images/Tobi.png" },
   { name: "AbdulKabir", src: "/images/AbdulKabir.png" },
-  { name: "Shevs", src: "/images/Shev.png" },
-  { name: "OluwaDeborah", src: "/images/OluwaDeborah.png" },
+  { name: "Stephen Adebayo", src: "/images/Shev.png" },
+  { name: "Ojo Deborah", src: "/images/OluwaDeborah.png" },
+  {name: "Coker Olawale", src: "/images/CokerOlawale.png"},
 ];
 
 const navigationLinks = [
