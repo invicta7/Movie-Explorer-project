@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion"; // Import motion
 import myImage from "../assets/images/i47IUSsN126K11JUzqQIOi1Mg1M.jpg";
 import Genre from "./button/Genre";
+import { Link } from "react-router-dom";
 
 const MovieCard = ({
   id,
@@ -16,6 +17,7 @@ const MovieCard = ({
   const [isFavorite, setIsFavorite] = useState(false);
 
   const handleisFavorite = () => {
+
     // setFavorite((favorite) => !favorite);
     if(favoriteFilm.some((fav) => fav.id === movie.id)) {
       console.log("see")
@@ -42,6 +44,8 @@ const MovieCard = ({
     <div
       className={`w-[208px] h-[296px] movie-card relative rounded-2xl rounded-tl-none overflow-hidden flex flex-col justify-end before:content-[''] before:absolute before:z-50 before:top-0 before:left-[34%] before:bg-transparent before:rounded-[50%] before:w-4 before:h-4 before:shadow-[-10px_-5px_0_#030A1B] after:content-[''] after:absolute after:top-[23%] after:bg-transparent after:w-4 after:h-4 after:rounded-[50%] after:shadow-[-10px_-5px_0_#030A1B] shadow-[0px_14px_42px_-8px_#7090B033]`}
     >
+
+       <Link to={`/movie/${id}`} className="absolute inset-0">
       {/* Image with Framer Motion for zoom effect */}
       <motion.img
         src={`https://image.tmdb.org/t/p/w500${poster_path}`}
@@ -51,10 +55,11 @@ const MovieCard = ({
         whileHover={{ scale: 1.2 }} // Zoom in effect on hover
         transition={{ duration: 0.8 }}
       />
+        </Link>
 
       <button
         onClick={handleisFavorite}
-        className="cursor-pointer w-16 h-16 outline-8 outline-[#030A1B] rounded-2xl absolute -top-0.25 -left-0.25 flex justify-center items-center backdrop-blur-[1px] hover:bg-[#00000091]"
+        className="cursor-pointer w-16 h-16 outline-8 outline-[#030A1B] rounded-2xl absolute -top-0.25 -left-0.25 flex justify-center items-center backdrop-blur-[1px] hover:bg-[#00000091] z-100"
       >
         <span
           className={`${
@@ -64,7 +69,7 @@ const MovieCard = ({
         <span className="w-6 h-1 bg-white rounded-2xl"></span>
       </button>
 
-      <div className="w-full bg-gradient-to-t from-[#000000] to-[#00000010] z-30 px-3 pb-3 pt-12 capitalize cursor-context-menu opacity-100">
+      <Link to={`/movie/${id}`} className="w-full bg-gradient-to-t from-[#000000] to-[#00000010] z-30 px-3 pb-3 pt-12 capitalize cursor-context-menu opacity-100">
         <h3 className="text-2xl font-medium overflow-hidden overflow-ellipsis">
           {title}
         </h3>
@@ -79,8 +84,8 @@ const MovieCard = ({
               ): null : null;
             })}
         </div>
+      </Link>
       </div>
-    </div>
   );
 };
 
