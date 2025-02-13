@@ -13,9 +13,10 @@ const HeroSearchBar = ({}) => {
     navigateTo(`/search?search=${queriedMovie}`)
   } 
   
-  const handleOtherSubmit = (movie) => {
-    setQueriedMovie(movie.title)
-    console.log(queriedMovie)
+  const handleOtherSubmit = (e) => {
+    e.preventDefault();
+    console.log(e.target.innerText)
+    navigateTo(`/search?search=${e.target.innerText}`)
   }
 
   useEffect(()=> {
@@ -44,7 +45,7 @@ const HeroSearchBar = ({}) => {
             <div className='w-full h-fit bg-white flex-col hidden group-hover:flex'>
                 {movieResults && movieResults.map((movie, index) => {
                     return (
-                        <button className='cursor-pointer w-full px-4 py-2 text-black text-left hover:bg-gray-400 text-nowrap text-ellipsis overflow-hidden' key={index} onClick={(movie)=>handleOtherSubmit(movie)}>{movie.title}</button>
+                        <button className='cursor-pointer w-full px-4 py-2 text-black text-left hover:bg-gray-400 text-nowrap text-ellipsis overflow-hidden' key={index} onClick={handleOtherSubmit}>{movie.title}</button>
                     )
                 }
             )}

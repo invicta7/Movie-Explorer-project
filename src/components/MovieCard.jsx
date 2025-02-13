@@ -30,10 +30,8 @@ const MovieCard = ({
 
   useEffect(()=> {
     if(favoriteFilm && favoriteFilm.some((fav) => fav.id === movie.id)) {
-      console.log("see")
       setIsFavorite(true)
     }else {
-      console.log("no see")
       setIsFavorite(false)
     }
   },[handleisFavorite])

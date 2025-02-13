@@ -115,7 +115,7 @@ const MovieList = () => {
 
   return (
     <section className="max-w-[1232px] mx-auto px-4">
-      <div className="text-2xl flex justify-between mb-8">
+      <div className={`text-2xl ${savedFavorite.length > 0? 'flex' : 'hidden'} flex justify-between mb-8`}>
         <h1>Favorites</h1>
         <SeeMore linkPath={"/favorites"}/>
       </div>
