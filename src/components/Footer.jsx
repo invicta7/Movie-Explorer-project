@@ -113,7 +113,7 @@ const Footer = () => {
         </div>
 
         <h2 className="text-2xl font-bold mt-12 mb-4">Meet the Team</h2>
-        <div className="w-full overflow-auto flex justify-start mb-4">
+        <div className="w-full overflow-auto flex justify-start md:justify-center mb-4">
           {teamMembers.map((member, index) => (
             <div key={index} className="flex flex-col items-center">
               <img
