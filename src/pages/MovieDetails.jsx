@@ -6,6 +6,7 @@ import WatchMovie from "../components/button/WatchMovie";
 import MoreInfo from "../components/button/MoreInfo";
 import Footer from "../components/Footer";
 import Genre from "../components/button/Genre";
+import { div } from "framer-motion/client";
 
 const API_KEY = "bcc26b7e142a51f09bcf0a149964e33b";
 const BASE_URL = "https://api.themoviedb.org/3";
@@ -16,6 +17,7 @@ const MovieDetail = () => {
   const [trailer, setTrailer] = useState(null);
   const [showTrailer, setShowTrailer] = useState(false);
   const [backdropImages, setBackdropImages] = useState([]);
+  const [movieLogos, setMovieLogos] = useState([])
   const [cast, setCast] = useState([]);
   const [director, setDirector] = useState(null);
   const {id} = useParams();
@@ -29,6 +31,7 @@ const MovieDetail = () => {
         );
         const data = await res.json();
         setMovie(data);
+        console.log(data)
 
         // Get Trailer (first YouTube trailer)
         if (data.videos?.results.length > 0) {
@@ -38,17 +41,22 @@ const MovieDetail = () => {
           setTrailer(trailerData ? trailerData.key : null);
         }
 
-        // Get top 5 Cast members
-        setCast(data.credits?.cast.slice(0, 5) || []);
+        // Get Cast members
+        setCast(data.credits?.cast || []);
 
         // Get Director from crew
         const directorData = data.credits?.crew.find(
           (person) => person.job === "Director"
         );
         setDirector(directorData);
+        console.log(director)
 
         // Get 5 backdrop snippet images
-        setBackdropImages(data.images?.backdrops.slice(0, 5) || []);
+        setBackdropImages(data.images?.backdrops.slice(1, 6) || []);
+
+        // Get image logos
+        setMovieLogos(data.images?.logos[0] || []);
+
       } catch (error) {
         console.error("Error fetching movie details:", error);
       }
@@ -57,73 +65,107 @@ const MovieDetail = () => {
     fetchMovieDetails();
   }, [id]);
 
+  const formatRuntime = () => {
+    if(movie) {
+      const runtimeMinutes = movie.runtime
+      if (runtimeMinutes >= 60) {
+        const hours = Math.floor(runtimeMinutes / 60)
+        const mins = runtimeMinutes % 60
+        return `${hours}h ${mins}m`
+      }else {
+          return `${runtimeMinutes}m`
+      }
+    }
+   
+  }
+  const formattedRunTime = formatRuntime();
+
   if (!movie)
     return <div className="text-white text-center p-8">Loading...</div>;
 
   return (
-    <div className="bg-[#030A1B] text-white min-h-screen">
+    <div className="bg-[#030A1B] text-white min-h-screen relative h-[120vh] lg:max-h-[762px] max-h-[1024px]">
       {/* Backdrop Image Section */}
-      <div className="relative h-[120vh] sm:h-[80vh] overflow-x-hidden">
+      <div className="relative w-full h-full">
         <NavBar/>
-        {movie.backdrop_path ? (
+        {backdropImages?.length >0? (
           <img
-            src={`${IMAGE_BASE_URL}${movie.backdrop_path}`}
+            src={`${IMAGE_BASE_URL}${backdropImages[0].file_path}`}
             alt={movie.title}
-            className="absolute w-full h-full object-cover opacity-50"
+            className="absolute lg:w-full h-full object-cover"
           />
         ) : (
-          <div className="absolute w-full h-full bg-gray-800"></div>
+          <div className="absolute w-full h-full bg-[#030A1B]"></div>
         )}
 
         {/* Movie Info Overlay on the Mid-Left */}
-        <div className="absolute top-1/2 left-4 sm:left-10 transform -translate-y-1/2 bg-[#030A1B]/70 p-4 rounded-lg max-w-[90%] sm:max-w-md">
-          <h1 className="text-[72px] sm: text-3xl font-bold mb-2">{movie.title}</h1>
-          <p className="mb-1 font-small text-[24px]">{movie.runtime} min - {new Date(movie.release_date).getFullYear()} - {" "}
-            {movie.production_countries && movie.production_countries[0]
-              ? movie.production_countries[0].name
-              : "N/A"}</p>
-      <p className="mb-1 font-medium text-[24px]">Ratings: {movie.vote_average}</p>
-<div className="mt-0 flex justify-center items-start space-x-4 gap-3 mb-50 ml-200">
-   <WatchMovie buttonName = {"watch movie"} className= "px-6 py-2  text-lg" onClick={() => setShowTrailer(true)} />
-   <MoreInfo buttonName = {"Preview"} className= "px-6 py-2  text-lg"/>
- </div>
-          
+        <div className="w-full h-full absolute bg-gradient-to-r from-[#030A1B] via-transparent to-[#030A1B] flex justify-center">
+          <div className="w-full md:w-[85%] h-full max-w-[1232px] flex flex-col lg:flex-row lg:items-end pb-60 justify-end lg:justify-between p-4 lg:p-0 lg:pb-60">
+            <div className="lg:w-1/2 w-full">
+              <h1 className="text-5xl font-bold mb-2">{movie.title}</h1>
+              <p className="mb-1 text-[1.25rem]">{formattedRunTime} - {new Date(movie.release_date).getFullYear()} - {" "}
+                {movie.production_countries && movie.production_countries[0]
+                  ? movie.production_countries[0].name
+                  : "N/A"}</p>
+              <p className="mb-1 font-medium text-[1.25rem]">Ratings: {movie.vote_average}</p>
+            </div>
             
-        
-      
+            <div className="mt-8 lg:mt-0 flex flex-col items-start lg:items-center gap-8">
+              {movieLogos? (
+                <div className="w-100 object-cover hidden md:block">
+                <img
+                  src={`${IMAGE_BASE_URL}${movieLogos.file_path}`}
+                  alt={movie.title}
+                  className="w-full object-cover"
+                />
+              </div>
+              ): 
+               null}
+             
+              <div className="flex gap-6 justify-center">
+              <WatchMovie buttonName = {"watch now"} onClick={() => setShowTrailer(true)} />
+              <MoreInfo buttonName = {"Preview"}/>
+              </div>
+              
+            </div>    
+          </div>
         </div>
 
         {/* Snippet Carousel at Bottom with Backdrop Blur */}
         {backdropImages.length > 0 && (
-          <div className="absolute bottom-5 left-5 right-5 bg-[#030A1B]/40 backdrop-blur-md p-2 rounded-lg flex justify-start gap-4 items-center">
+          <div className="w-full absolute -bottom-20 backdrop-blur-md p-2 rounded-lg flex flex-wrap md:flex-nowrap justify-center gap-4 items-center overflow-hidden">
             {backdropImages.map((img, index) => (
-              <img
+              <div className="w-[100px] h-[100px] md:min-w-[240px] md:h-[240px] rounded-lg flex justify-center items-start overflow-hidden relative">
+                <img
                 key={index}
                 src={`${IMAGE_BASE_URL}${img.file_path}`}
                 alt={`Scene ${index + 1}`}
-                className="w-[240px] h-[240px] rounded-lg object-cover"
-              />
+                className="h-full object-cover"
+                />
+                <span className={`w-full h-full absolute pointer-events-none bg-[#030a1b38]`}></span>
+              </div>
+              
             ))}
           </div>
         )}
       </div>
 
       {/* Sections Below the Carousel */}
-      <div className=" p-6 space-y-6">
+      <div className="mx-auto p-4 max-w-[1232px] mt-30">
         {/* About / Overview Section */}
         <div className="bg-[#030A1B] p-4 rounded-lg">
-          <h2 className="text-[72px] font-bold mb-2">About {movie.title}</h2>
-          <p className="text-[24px] font-medium">{movie.overview}</p>
+          <h2 className="text-5xl font-bold mb-4">About {movie.title}</h2>
+          <p className="font-medium text-[1.25rem]">{movie.overview}</p>
         </div>
 
         {/* Genre Section */}
-        <div className="bg-[#030A1B] p-4 rounded-lg">
-          <h2 className="text-[48px] font-bold mb-2">Genres</h2>
-          <div className="flex flex-wrap gap-2">
+        <div className="bg-[#030A1B] p-4 rounded-lg mt-8">
+          <h2 className="text-5xl font-bold mb-8">Genres</h2>
+          <div className="flex flex-wrap gap-6">
             {movie.genres?.map((genre) => (
-             <button
+              <button
                 key={genre.id}
-                className="bg-gray-700 text-white px-3 py-1 rounded"
+                className="text-nowrap py-2 px-5 last-child:mr-0 rounded-3xl border-solid border-[1px] cursor-pointer capitalize border-[#EC5BAA] bg-[#EC5BAA]"
               >
                 {genre.name}
               </button>
@@ -132,23 +174,26 @@ const MovieDetail = () => {
         </div>
 
         {/* Cast Section */}
-        <div className="bg-[#030A1B] p-4 rounded-lg">
-          <h2 className="text-[48px] font-bold mb-2">Cast</h2>
-          <div className="flex space-x-4 gap-2 justify-around">
+        <div className="bg-[#030A1B] p-4  mt-8">
+          <h2 className="text-5xl font-bold mb-8">Characters</h2>
+          <div className="flex gap-12 items-start justify-left overflow-auto">
             {cast.map((actor) => (
-              <div key={actor.id} className="text-center gap-2 flex justify-center items-center sm:h-[60vh] flex-col">
+              <div key={actor.id} className="text-center gap-2 flex justify-center items-center flex-col">
                 {actor.profile_path ? (
-                  <img
+                  <div className="w-[166px] h-[166px] rounded-full overflow-hidden flex items-center justify-center">
+                     <img
                     src={`https://image.tmdb.org/t/p/w200${actor.profile_path}`}
                     alt={actor.name}
-                    className="w-[173px] h-[173px] rounded-full object-cover "
-                  />
+                    className="w-full object-cover "
+                    />
+                  </div>
+                 
                 ) : (
-                  <div className="w-16 h-16 bg-gray-700 rounded-full flex items-center justify-center text-gray-400">
+                  <div className="w-[166px] h-[166px] bg-gray-700 rounded-full flex items-center justify-center text-gray-400">
                     N/A
                   </div>
                 )}
-                <p className="mt-4 text-xl">{actor.name}</p>
+                <p className="my-4 text-xl">{actor.name}</p>
               </div>
             ))}
           </div>
@@ -157,27 +202,40 @@ const MovieDetail = () => {
         {/* Director Section */}
         <div className="bg-[#030A1B] p-4 rounded-lg mt-5">
           <h2 className="text-[48px] font-bold mb-2">Director</h2>
-          <p>{director ? director.name : "N/A"}</p>
+          <div className="text-center gap-2 flex items-start justify-center flex-col">
+            {director.profile_path ? (
+              <div className="w-[166px] h-[166px] rounded-full overflow-hidden flex items-center justify-center">
+              <img src={`https://image.tmdb.org/t/p/w200${director.profile_path}`} alt={director.name} />
+              </div>
+            ): 
+            (
+              <div className="w-[166px] h-[166px] bg-gray-700 rounded-full flex items-center justify-center text-gray-400">
+                N/A
+              </div>
+            ) }
+            <p className="my-4 text-xl">{director ? director.name : "N/A"}</p>
+          </div>
         </div>
         <Footer/>
       </div>
 
       {/* Trailer Modal */}
       {showTrailer && trailer && (
-        <div className="fixed top-0 left-0 w-full h-full bg-[#030A1B] bg-opacity-80 flex items-center justify-center z-50">
-          <div className="relative w-[90%] max-w-4xl top-10">
+        <div className="fixed top-0 left-0 w-full h-full bg-[#000000c9] flex items-center justify-center z-5000000">
+          <div className="w-4/5 h-[85%]">
             <iframe
-              className="w-full h-[80vh] md:h-64"
+              className="w-full h-full"
               src={`https://www.youtube.com/embed/${trailer}?autoplay=1`}
               title="Trailer"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
             ></iframe>
-            <button
-              onClick={() => setShowTrailer(false)}
-              className="absolute -top-5 -right-5 bg-red-600 text-white px-4 py-2 rounded-full text-lg"
+            <button 
+              onClick={() => setShowTrailer(false)} 
+              className="absolute top-4 right-5 font-bold px-4 py-2 rounded-full cursor-pointer"
             >
-              ✖ Close
+              <span className='w-1 h-6 bg-white rounded-2xl rotate-45 absolute'></span>
+              <span className='w-1 h-6 bg-white rounded-2xl -rotate-45 absolute'></span>
             </button>
           </div>
         </div>

@@ -85,7 +85,10 @@ const Header = () => {
                   buttonName={"watch movie"} 
                   onClick={handleWatchMovieClick}
                 />
-                <MoreInfo buttonName={"more info"} />
+                <MoreInfo 
+                buttonName={"more info"}
+                linkName={`/movie/${featuredMovie.id}`}
+                />
               </span>
             </div>
 
@@ -108,20 +111,21 @@ const Header = () => {
       
       {/* Trailer Modal */}
       {showTrailer && trailerKey && (
-        <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-80 flex items-center justify-center z-50">
-          <div className="relative w-full max-w-4xl">
+        <div className="fixed top-0 left-0 w-full h-full bg-[#000000c9] flex items-center justify-center z-5000000">
+          <div className="w-4/5 h-[85%]">
            <iframe
-        className="w-full h-96"
-        src={`https://www.youtube.com/embed/${trailerKey}?autoplay=1`}
-        title="Trailer"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowFullScreen
-      ></iframe>
+              className="w-full h-full"
+              src={`https://www.youtube.com/embed/${trailerKey}?autoplay=1`}
+              title="Trailer"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            ></iframe>
             <button 
               onClick={() => setShowTrailer(false)} 
-              className="absolute -top-5 -right-5 bg-red-600 font-bold px-4 py-2 rounded-full text-lg"
+              className="absolute top-4 right-5 font-bold px-4 py-2 rounded-full cursor-pointer"
             >
-              X Close
+              <span className='w-1 h-6 bg-white rounded-2xl rotate-45 absolute'></span>
+              <span className='w-1 h-6 bg-white rounded-2xl -rotate-45 absolute'></span>
             </button>
           </div>
         </div>
