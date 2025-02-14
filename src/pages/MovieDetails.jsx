@@ -84,7 +84,7 @@ const MovieDetail = () => {
     return <div className="text-white text-center p-8">Loading...</div>;
 
   return (
-    <div className="bg-[#030A1B] text-white min-h-screen relative h-[120vh] lg:max-h-[762px] max-h-[1024px]">
+    <section className="bg-[#030A1B] text-white min-h-screen relative h-[100vh] lg:max-h-[762px] max-h-[1024px]">
       {/* Backdrop Image Section */}
       <div className="relative w-full h-full">
         <NavBar/>
@@ -92,7 +92,7 @@ const MovieDetail = () => {
           <img
             src={`${IMAGE_BASE_URL}${backdropImages[0].file_path}`}
             alt={movie.title}
-            className="absolute lg:w-full h-full object-cover"
+            className="absolute w-full h-full object-cover"
           />
         ) : (
           <div className="absolute w-full h-full bg-[#030A1B]"></div>
@@ -240,7 +240,7 @@ const MovieDetail = () => {
           </div>
         </div>
       )}
-    </div>
+    </section>
   );
 };
 
