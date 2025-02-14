@@ -64,14 +64,19 @@ const Header = () => {
   return (
     <section className='relative flex items-end h-[120vh] lg:max-h-[762px] max-h-[1024px]'>
       {featuredMovies && featuredMovies.map((featuredMovie, index) => (
-        <motion.div
-          key={featuredMovie.id}
-          initial={{ scale: 1 }}
-          className={`${currentIndex === index ? "block" : "hidden"} relative h-full w-full flex items-end justify-center overflow-hidden`}
+        <div className={`${currentIndex === index ? "block" : "hidden"} relative h-full w-full flex items-end justify-center overflow-hidden`}
         >
           <picture className='w-full absolute -z-10 top-0'>
             <source media="(max-width:64rem)" srcSet={API_URL_IMG + featuredMovie.poster_path} />
-            <img src={API_URL_IMG + featuredMovie.backdrop_path} alt="movie-poster" className='w-full' />
+            <motion.img
+            key={featuredMovie.id}
+            src={API_URL_IMG + featuredMovie.backdrop_path} alt="movie-poster" className='w-full'
+            initial={{ scale: 1 }}
+            animate={{ opacity: currentIndex === index ? 1 : 0 }}
+            transition={{ duration: 1 }}
+            >
+            
+            </motion.img>
           </picture>
           <div className='w-full h-full absolute -z-8 bg-gradient-to-t from-[#030A1B] via-[#030a1b] md:via-[#030a1b91] to-transparent'></div>
 
@@ -95,18 +100,24 @@ const Header = () => {
             {/* Indicator area */}
             <div className='w-full lg:w-fit px-8 z-40 flex items-center justify-start mb-8 lg:mb-0'>
               {featuredMovies.map((movie, idx) => (
-                <button 
+                <motion.button 
                   key={movie.id} 
                   onClick={() => setCurrentIndex(idx)} 
-                  className={`cursor-pointer flex items-start justify-center w-25 h-25 md:w-35 md:h-35 overflow-hidden rounded-2xl -mx-2 relative border-[1px] border-[#228de557] ${currentIndex === idx ? "z-50 w-40 h-40 md:w-50 md:h-50" : ""}`}
+                  className={`cursor-pointer flex items-start justify-center w-25 h-25 md:w-35 md:h-35 overflow-hidden rounded-2xl -mx-2 relative border-[1px] border-[#228de557] ${currentIndex === idx ? "z-50" : ""}`}
+                  initial={{ scale: 1 }}
+                  animate={{
+                    scale: currentIndex === idx ? 1.3 : 1, // Grow when active
+                    borderColor: currentIndex === idx ? "#228de5" : "#228de557", // Change border color
+                  }}
+                  transition={{ duration: 0.5 }}
                 >
                   <img src={API_URL_IMG + movie.poster_path} alt="movie-poster" />
                   <span className={`w-full h-full absolute pointer-events-none ${currentIndex === idx ? "" : "bg-[#030a1b86]"}`}></span>
-                </button>
+                </motion.button>
               ))}
             </div>
           </div>
-        </motion.div>
+        </div>
       ))}
       
       {/* Trailer Modal */}

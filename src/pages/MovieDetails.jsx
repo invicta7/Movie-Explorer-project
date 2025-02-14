@@ -7,6 +7,7 @@ import MoreInfo from "../components/button/MoreInfo";
 import Footer from "../components/Footer";
 import Genre from "../components/button/Genre";
 import { div } from "framer-motion/client";
+import { AnimatePresence, motion } from "framer-motion";
 
 const API_KEY = "bcc26b7e142a51f09bcf0a149964e33b";
 const BASE_URL = "https://api.themoviedb.org/3";
@@ -20,6 +21,7 @@ const MovieDetail = () => {
   const [movieLogos, setMovieLogos] = useState([])
   const [cast, setCast] = useState([]);
   const [director, setDirector] = useState(null);
+  const [currentIndex, setCurrentIndex] = useState(0)
   const {id} = useParams();
   
 
@@ -80,26 +82,53 @@ const MovieDetail = () => {
   }
   const formattedRunTime = formatRuntime();
 
+  const showNextBackground = () => {
+    if(backdropImages && backdropImages.length > 1) {
+      setCurrentIndex(currentIndex === backdropImages.length - 1 ? 0 : currentIndex + 1);
+    }
+    };
+  
+    useEffect(() => {
+      const timer = setTimeout(() => {
+        showNextBackground();
+      }, 7000);
+      return () => clearTimeout(timer);
+    }, [currentIndex, backdropImages]);
+
   if (!movie)
     return <div className="text-white text-center p-8">Loading...</div>;
 
   return (
-    <section className="bg-[#030A1B] text-white min-h-screen relative h-[100vh] lg:max-h-[762px] max-h-[1024px]">
+    <section className="bg-[#030A1B] text-white min-h-screen relative  overflow-x-hidden">
       {/* Backdrop Image Section */}
-      <div className="relative w-full h-full">
+      <div className="relative w-full  h-[100vh] lg:h-[120vh] lg:max-h-[762px] max-h-[1024px]">
         <NavBar/>
-        {backdropImages?.length >0? (
-          <img
-            src={`${IMAGE_BASE_URL}${backdropImages[0].file_path}`}
+        <AnimatePresence mode="wait">
+        {backdropImages?.length > 0 ? (
+          <motion.img
+            key={backdropImages[currentIndex].file_path} // Key triggers animation change
+            src={`${IMAGE_BASE_URL}${backdropImages[currentIndex].file_path}`}
             alt={movie.title}
             className="absolute w-full h-full object-cover"
+            initial={{ opacity: 0, scale: 1.1 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 1.1 }}
+            transition={{ duration: 1 }}
           />
         ) : (
-          <div className="absolute w-full h-full bg-[#030A1B]"></div>
+          <motion.div
+            key="fallback-bg"
+            className="absolute w-full h-full bg-[#030A1B]"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1 }}
+          ></motion.div>
         )}
+      </AnimatePresence>
 
         {/* Movie Info Overlay on the Mid-Left */}
-        <div className="w-full h-full absolute bg-gradient-to-r from-[#030A1B] via-transparent to-[#030A1B] flex justify-center">
+        <div className="w-full h-full absolute bg-gradient-to-r from-[#030A1B] via-[#030a1b6e] lg:via-transparent to-[#030A1B] flex justify-center">
           <div className="w-full md:w-[85%] h-full max-w-[1232px] flex flex-col lg:flex-row lg:items-end pb-60 justify-end lg:justify-between p-4 lg:p-0 lg:pb-60">
             <div className="lg:w-1/2 w-full">
               <h1 className="text-5xl font-bold mb-2">{movie.title}</h1>
