@@ -71,8 +71,8 @@ const Header = () => {
             <motion.img
             key={featuredMovie.id}
             src={API_URL_IMG + featuredMovie.backdrop_path} alt="movie-poster" className='w-full'
-            initial={{ scale: 1 }}
-            animate={{ opacity: currentIndex === index ? 1 : 0 }}
+            initial={{ scale: 1}}
+            animate={{ scale: currentIndex === index ? 1.2 : 1}}
             transition={{ duration: 1 }}
             >
             

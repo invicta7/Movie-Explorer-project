@@ -96,7 +96,7 @@ const navigationLinks = [
 
 const Footer = () => {
   return (
-    <footer className="bg-[#030A1B] text-white py-6 mt-10 px-4">
+    <footer className="bg-[#030A1B] text-white py-6 mt-10 px-4 overflow-hidden">
       <div className="container mx-auto flex flex-col items-center mt-30 gap-4 md:flex-wrap justify-start max-w-[1040px]">
         <h1 className="text-5xl font-bold mb-6">Studios</h1>
         <div className="flex mb-4 gap-12 flex-wrap justify-center items-center md:flex-wrap">
@@ -115,16 +115,16 @@ const Footer = () => {
         <h2 className="text-2xl font-bold mt-12 mb-4">Meet the Team</h2>
 
         
-        <div className=" md:w-full overflow-hidden flex justify-start mb-4 gap-2 sm:flex-wrap">
+        <div className="w-full overflow-auto flex flex-nowrap justify-start mb-4 pb-4 gap-6">
 
           {teamMembers.map((member, index) => (
             <div key={index} className="flex flex-col items-center">
               <img
                 src={member.src}
                 alt={member.name}
-                className="h-[140px] w-[140px] rounded-full object-cover"
+                className="h-[140px] min-w-[140px] rounded-full object-cover"
               />
-              <p className="text-sm mt-2">{member.name}</p>
+              <p className="text-sm mt-4">{member.name}</p>
             </div>
           ))}
         </div>
