@@ -13,9 +13,10 @@ const HeroSearchBar = ({}) => {
     navigateTo(`/search?search=${queriedMovie}`)
   } 
   
-  const handleOtherSubmit = (movie) => {
-    setQueriedMovie(movie.title)
-    console.log(queriedMovie)
+  const handleOtherSubmit = (e) => {
+    e.preventDefault();
+    console.log(e.target.innerText)
+    navigateTo(`/search?search=${e.target.innerText}`)
   }
 
   useEffect(()=> {
@@ -28,12 +29,12 @@ const HeroSearchBar = ({}) => {
 
   return (
     <form onSubmit={handleSubmit} className='h-10 overflow-visible flex justify-end flex-row-reverse items-start w-fit group'>
-        <NavLink to={`/search?search=${queriedMovie}`} className="peer flex flex-col items-center justify-center h-full group">
+        <button onClick={()=>navigateTo(`/search?search=${queriedMovie}`)} className="peer flex flex-col items-center justify-center h-full group">
             <svg width="20" height="20" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M25 25L18.0711 18.0711M18.0711 18.0711C19.8807 16.2614 21 13.7614 21 11C21 5.47715 16.5228 1 11 1C5.47715 1 1 5.47715 1 11C1 16.5228 5.47715 21 11 21C13.7614 21 16.2614 19.8807 18.0711 18.0711Z" stroke="#EBFAFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
             <span className='w-4/5 h-1 bg-[#228EE5] blur-[2px] scale-x-0 group-hover:scale-x-100 group-[.active]:scale-x-100'></span>
-        </NavLink>
+        </button>
         <div className='w-80 max-h-10 overflow-visible hidden lg:inline'>
             <input 
             type="text" 
@@ -44,7 +45,7 @@ const HeroSearchBar = ({}) => {
             <div className='w-full h-fit bg-white flex-col hidden group-hover:flex'>
                 {movieResults && movieResults.map((movie, index) => {
                     return (
-                        <button className='cursor-pointer w-full px-4 py-2 text-black text-left hover:bg-gray-400 text-nowrap text-ellipsis overflow-hidden' key={index} onClick={(movie)=>handleOtherSubmit(movie)}>{movie.title}</button>
+                        <button className='cursor-pointer w-full px-4 py-2 text-black text-left hover:bg-gray-400 text-nowrap text-ellipsis overflow-hidden' key={index} onClick={handleOtherSubmit}>{movie.title}</button>
                     )
                 }
             )}

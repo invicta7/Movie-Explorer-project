@@ -64,14 +64,19 @@ const Header = () => {
   return (
     <section className='relative flex items-end h-[120vh] lg:max-h-[762px] max-h-[1024px]'>
       {featuredMovies && featuredMovies.map((featuredMovie, index) => (
-        <motion.div
-          key={featuredMovie.id}
-          initial={{ scale: 1 }}
-          className={`${currentIndex === index ? "block" : "hidden"} relative h-full w-full flex items-end justify-center overflow-hidden`}
+        <div className={`${currentIndex === index ? "block" : "hidden"} relative h-full w-full flex items-end justify-center overflow-hidden`}
         >
           <picture className='w-full absolute -z-10 top-0'>
             <source media="(max-width:64rem)" srcSet={API_URL_IMG + featuredMovie.poster_path} />
-            <img src={API_URL_IMG + featuredMovie.backdrop_path} alt="movie-poster" className='w-full' />
+            <motion.img
+            key={featuredMovie.id}
+            src={API_URL_IMG + featuredMovie.backdrop_path} alt="movie-poster" className='w-full'
+            initial={{ scale: 1 }}
+            animate={{ opacity: currentIndex === index ? 1 : 0 }}
+            transition={{ duration: 1 }}
+            >
+            
+            </motion.img>
           </picture>
           <div className='w-full h-full absolute -z-8 bg-gradient-to-t from-[#030A1B] via-[#030a1b] md:via-[#030a1b91] to-transparent'></div>
 
@@ -85,43 +90,53 @@ const Header = () => {
                   buttonName={"watch movie"} 
                   onClick={handleWatchMovieClick}
                 />
-                <MoreInfo buttonName={"more info"} />
+                <MoreInfo 
+                buttonName={"more info"}
+                linkName={`/movie/${featuredMovie.id}`}
+                />
               </span>
             </div>
 
             {/* Indicator area */}
             <div className='w-full lg:w-fit px-8 z-40 flex items-center justify-start mb-8 lg:mb-0'>
               {featuredMovies.map((movie, idx) => (
-                <button 
+                <motion.button 
                   key={movie.id} 
                   onClick={() => setCurrentIndex(idx)} 
-                  className={`cursor-pointer flex items-start justify-center w-25 h-25 md:w-35 md:h-35 overflow-hidden rounded-2xl -mx-2 relative border-[1px] border-[#228de557] ${currentIndex === idx ? "z-50 w-40 h-40 md:w-50 md:h-50" : ""}`}
+                  className={`cursor-pointer flex items-start justify-center w-25 h-25 md:w-35 md:h-35 overflow-hidden rounded-2xl -mx-2 relative border-[1px] border-[#228de557] ${currentIndex === idx ? "z-50" : ""}`}
+                  initial={{ scale: 1 }}
+                  animate={{
+                    scale: currentIndex === idx ? 1.3 : 1, // Grow when active
+                    borderColor: currentIndex === idx ? "#228de5" : "#228de557", // Change border color
+                  }}
+                  transition={{ duration: 0.5 }}
                 >
                   <img src={API_URL_IMG + movie.poster_path} alt="movie-poster" />
                   <span className={`w-full h-full absolute pointer-events-none ${currentIndex === idx ? "" : "bg-[#030a1b86]"}`}></span>
-                </button>
+                </motion.button>
               ))}
             </div>
           </div>
-        </motion.div>
+        </div>
       ))}
       
       {/* Trailer Modal */}
       {showTrailer && trailerKey && (
-        <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-80 flex items-center justify-center z-50">
-          <div className="relative w-full max-w-4xl">
+        <div className="fixed top-0 left-0 w-full h-full bg-[#000000c9] flex items-center justify-center z-5000000">
+          <div className="w-4/5 h-[85%]">
            <iframe
-        className="w-full h-96"
-        src={`https://www.youtube.com/embed/${trailerKey}?autoplay=1`}
-        title="Trailer"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowFullScreen
-      ></iframe>
+              className="w-full h-full"
+              src={`https://www.youtube.com/embed/${trailerKey}?autoplay=1`}
+              title="Trailer"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            ></iframe>
             <button 
               onClick={() => setShowTrailer(false)} 
-              className="absolute -top-5 -right-5 bg-red-600 font-bold px-4 py-2 rounded-full text-lg"
+              className="absolute top-4 right-5 font-bold px-4 py-2 rounded-full cursor-pointer"
             >
-              X Close
+              <span className='w-1 h-6 bg-white rounded-2xl rotate-45 absolute'></span>
+              <span className='w-1 h-6 bg-white rounded-2xl -rotate-45 absolute'></span>
             </button>
           </div>
         </div>

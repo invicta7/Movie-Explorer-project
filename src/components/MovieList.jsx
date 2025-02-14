@@ -115,8 +115,8 @@ const MovieList = () => {
 
   return (
     <section className="max-w-[1232px] mx-auto px-4">
-      <div className="text-2xl flex justify-between mb-8">
-        <h1>Favorites</h1>
+      <div className={`${savedFavorite.length > 0? 'flex' : 'hidden'} flex justify-between mb-8`}>
+        <h1 className="font-bold text-3xl">Favorites</h1>
         <SeeMore linkPath={"/favorites"}/>
       </div>
       <FavoriteList
@@ -124,8 +124,8 @@ const MovieList = () => {
         getGenres={getGenres}
         handleFavoriteClick={handleFavoriteClick}
       />
-      <div className="text-2xl flex justify-between mb-8">
-        <h1>Movies</h1>
+      <div className="flex justify-between mb-8">
+        <h1 className="font-bold text-3xl">Movies</h1>
         <SeeMore />
       </div>
 

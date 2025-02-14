@@ -32,10 +32,8 @@ const MovieCard = ({
 
   useEffect(()=> {
     if(favoriteFilm && favoriteFilm.some((fav) => fav.id === movie.id)) {
-      console.log("see")
       setIsFavorite(true)
     }else {
-      console.log("no see")
       setIsFavorite(false)
     }
   },[handleisFavorite])
@@ -44,7 +42,7 @@ const MovieCard = ({
 
   return (
     <div
-      className={`w-[208px] h-[296px] movie-card relative rounded-2xl rounded-tl-none overflow-hidden flex flex-col justify-end before:content-[''] before:absolute before:z-50 before:top-0 before:left-[34%] before:bg-transparent before:rounded-[50%] before:w-4 before:h-4 before:shadow-[-10px_-5px_0_#030A1B] after:content-[''] after:absolute after:top-[23%] after:bg-transparent after:w-4 after:h-4 after:rounded-[50%] after:shadow-[-10px_-5px_0_#030A1B] shadow-[0px_14px_42px_-8px_#7090B033]`}
+      className={`cursor-pointer w-[208px] h-[296px] movie-card relative rounded-2xl rounded-tl-none overflow-hidden flex flex-col justify-end before:content-[''] before:absolute before:z-50 before:top-0 before:left-[34%] before:bg-transparent before:rounded-[50%] before:w-4 before:h-4 before:shadow-[-10px_-5px_0_#030A1B] after:content-[''] after:absolute after:top-[23%] after:bg-transparent after:w-4 after:h-4 after:rounded-[50%] after:shadow-[-10px_-5px_0_#030A1B] shadow-[0px_14px_42px_-8px_#7090B033]`}
     >
 
        <Link to={`/movie/${id}`} className="absolute inset-0">

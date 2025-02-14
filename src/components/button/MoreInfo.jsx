@@ -1,9 +1,10 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 
-const MoreInfo = ({buttonName, onClick}) => {
+const MoreInfo = ({buttonName, linkName}) => {
   return (
-    <button
-    onClick={onClick}
+    <Link
+    to={linkName}
     className={`border-[#228EE5] border-[1px] text-[#EBFAFF] text-nowrap flex justify-center items-center gap-2 px-5 py-2 capitalize cursor-pointer hover:bg-[#228EE5] ${buttonName.toLowerCase() === "more info"? "rounded-3xl": "rounded-lg"}`}
     >
       {buttonName}
@@ -12,7 +13,7 @@ const MoreInfo = ({buttonName, onClick}) => {
       <path d="M8.00391 11.0041L13.0039 6.00415M13.0039 6.00415L8.00391 1.00415M13.0039 6.00415L1.00391 6.00415" stroke="#EBFAFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
 
-    </button>
+    </Link>
   )
 }
 

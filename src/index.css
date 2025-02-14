@@ -20,6 +20,49 @@
   clip-path: inset(3% 0 0 0 round 20% 20% 0 0);;
 }
 
+@supports (scrollbar-color: red blue) {
+  * {
+    scrollbar-color: #4a90e2 #f1f1f117; /* thumb color | track color */
+    scrollbar-width: thin; /* "auto", "thin", or "none" */
+  }
+}
+
+::-webkit-scrollbar {
+  width: 6px; /* Vertical scrollbar width */
+  height: 6px; /* Horizontal scrollbar height */
+}
+
+/* Width of the scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* Track (the background of the scrollbar) */
+::-webkit-scrollbar-track {
+  background: #f1f1f11f; /* Light gray */
+  border-radius: 5px;
+}
+
+/* Handle (the draggable part of the scrollbar) */
+::-webkit-scrollbar-thumb {
+  background: #4a90e2; /* Blue */
+  border-radius: 40px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #3578c7;
+}
+
+::-webkit-scrollbar-button {
+  width: 0;
+  height: 0;
+  display: none;
+}
+
+
+
+
 @media (hover: hover) {
   .movie-card >div {
     opacity: 0;
