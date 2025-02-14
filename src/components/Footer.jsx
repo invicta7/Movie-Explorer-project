@@ -36,31 +36,31 @@ const logos = [
     name: "Apple TV",
     src: "/Apple.png",
     alt: "Apple Tv Logo",
-    link: "https://www.netflix.com/ng/",
+   
   },
   {
     name: "Amazon Prime",
     src: "/DC.png",
     alt: "Amazon Prime Logo",
-    link: "https://www.netflix.com/ng/",
+ 
   },
   {
     name: "AMC",
     src: "/AMC.png",
     alt: "AMC Logo",
-    link: "https://www.netflix.com/ng/",
+   
   },
   {
     name: "Sony",
     src: "/Sony.png",
     alt: "Sony Logo",
-    link: "https://www.netflix.com/ng/",
+   
   },
   {
     name: "Marvel",
     src: "/Marvel.png",
     alt: "Marvel Logo",
-    link: "https://www.netflix.com/ng/",
+  
   },
 ];
 
@@ -73,14 +73,14 @@ const socialLinks = [
 ];
 
 const teamMembers = [  
-  { name: "Busari Abdulhakem", src: "/images/Busari.png" },
-  { name: "Obong Uko", src: "/images/Obong.png" },
-  { name: "Victor Iriemi", src: "/images/Victor.png" },
-  { name: "Tobi Egunjobi", src: "/images/Tobi.png" },
-  { name: "AbdulKabir", src: "/images/AbdulKabir.png" },
-  { name: "Stephen Adebayo", src: "/images/Shev.png" },
-  { name: "Ojo Deborah", src: "/images/OluwaDeborah.png" },
-  {name: "Coker Olawale", src: "/images/CokerOlawale.png"},
+  { name: "Busari Abdulhakem", src: "/Busaripreferred.jpeg" },
+  { name: "Obong Uko", src: "/Obong1.jpeg" },
+  { name: "Victor Iriemi", src: "/vIriemi.jpeg" },
+  { name: "Tobi Egunjobi", src: "/Tobi.jpeg" },
+  { name: "AbdulKabir", src: "/Kabir.jpeg" },
+  { name: "Stephen Adebayo", src: "/Adebayo.jpeg" },
+  { name: "Ojo Deborah", src: "/Ojo Deborah.jpeg" },
+  {name: "Coker Olawale", src: "/Coker.jpeg"},
 ];
 
 const navigationLinks = [
@@ -113,13 +113,16 @@ const Footer = () => {
         </div>
 
         <h2 className="text-2xl font-bold mt-12 mb-4">Meet the Team</h2>
-        <div className="w-full overflow-auto flex justify-start md:justify-center mb-4">
+
+        
+        <div className=" md:w-full overflow-hidden flex justify-start mb-4 gap-2 sm:flex-wrap">
+
           {teamMembers.map((member, index) => (
             <div key={index} className="flex flex-col items-center">
               <img
                 src={member.src}
                 alt={member.name}
-                className="h-16 w-16 rounded-full object-cover"
+                className="h-[140px] w-[140px] rounded-full object-cover"
               />
               <p className="text-sm mt-2">{member.name}</p>
             </div>
