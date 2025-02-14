@@ -73,7 +73,7 @@ const socialLinks = [
 ];
 
 const teamMembers = [  
-  { name: "Busari Abdulhakem", src: "/Busaripreferred.jpeg" },
+  { name: "Busari Hakeem O.", src: "/Busaripreferred.jpeg" },
   { name: "Obong Uko", src: "/Obong1.jpeg" },
   { name: "Victor Iriemi", src: "/vIriemi.jpeg" },
   { name: "Tobi Egunjobi", src: "/Tobi.jpeg" },
